@@ -1,0 +1,58 @@
+﻿@model ems_onscene.Models.EntityModels.EMSMessage
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>EMSMessage</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.MessageTitle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MessageTitle)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MessageText)
+        </dt>
+
+        <dd>
+            @Html.Raw(Model.MessageText)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MessageTimeSent)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MessageTimeSent)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AspNetUser.MemberName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AspNetUser.MemberName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AspNetUser1.MemberName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AspNetUser1.MemberName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    
+    @Html.ActionLink("Back to List", "Index")
+</p>

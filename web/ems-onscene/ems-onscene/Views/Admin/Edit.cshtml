@@ -1,0 +1,71 @@
+﻿@using Microsoft.AspNet.Identity
+@using ems_onscene.Models.EntityModels
+@model EMSContent
+@{
+    ViewBag.Title = "content editor";
+    string _userId = User.Identity.GetUserId();
+    string MemberName;
+
+    EMSContent eMSContent = Model as EMSContent;
+
+    if (eMSContent == null)
+    {
+        eMSContent = new EMSContent();
+    }
+    using (emsonsceneEntities db = new emsonsceneEntities())
+    {
+        var user = db.AspNetUsers.FirstOrDefault(u => u.Id == _userId);
+        MemberName = user == null ? string.Empty : user.MemberName;
+        <main aria-labelledby="title">
+            <h2 id="title">@ViewBag.Title.</h2>
+            <div class="row">
+                <div class="col-md-8">
+                    <section id="editorForm">
+                        @using (Html.BeginForm("Edit", "Admin", null, FormMethod.Post, new { role = "form" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <h4>Submit New Content</h4>
+                            <hr />
+                            <h4 class="text-center text-primary">@ViewBag.Message</h4>
+                            <div class="row">
+                                <label class="col-md-2 col-form-label">Title</label>
+                                <div class="col-md-10">
+                                    <input name="title" class="form-control" value="" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-md-2 col-form-label">Content Type</label>
+                                <div class="col-md-10">
+                                    <select class="form-control" name="contenttype">
+                                        <option value="Location Lookup" @(eMSContent.contenttype == "Location Lookup" ? "selected" : string.Empty)>Location Lookup</option>
+                                        <option value="Inforation Lookup" @(eMSContent.contenttype == "Information Lookup" ? "selected" : string.Empty)>Information Lookup</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-md-2 col-form-label">Content</label>
+                                <div class="col-md-10">
+                                    <textarea name="content" class="ckeditor" style="min-height:200px;"></textarea>
+                                </div>
+                            </div>
+                            <div class="row">
+                                Image: <input type="file" id="postcontentfile" name="ufile" onchange="insertImageToCK(event, 'content', 'postcontentfile');" accept=".jpg, .jpeg, .png" />
+                        </div>
+                            <div class="row">&nbsp;</div>
+                            <div class="row">
+                                <div class="offset-md-2 col-md-10">
+                                    <input type="submit" value="Submit" class="btn btn-primary" />
+                                    <input type="submit" value="Cancel" class="btn btn-danger" />
+                                </div>
+                            </div>
+                        }
+                    </section>
+                </div>
+            </div>
+        </main>
+    }
+
+}
+@section scripts {
+    <script src="~/Scripts/ckeditor/ckeditor.js"></script>
+    } 

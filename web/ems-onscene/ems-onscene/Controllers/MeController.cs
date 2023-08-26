@@ -44,7 +44,7 @@ namespace ems_onscene.Controllers
         public GetViewModel Get()
         {
             var user = UserManager.FindById(User.Identity.GetUserId());
-            return new GetViewModel() { Hometown = user.Hometown };
+            return new GetViewModel() { MemberName = user.MemberName };
         }
     }
 }

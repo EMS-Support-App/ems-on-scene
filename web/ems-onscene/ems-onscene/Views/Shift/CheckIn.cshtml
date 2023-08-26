@@ -1,0 +1,62 @@
+﻿@using Microsoft.AspNet.Identity
+@using ems_onscene.Models.EntityModels
+
+@{
+    ViewBag.Title = "Shift Check in";
+    string _userId = User.Identity.GetUserId();
+    string MemberName;
+    using (emsonsceneEntities db = new emsonsceneEntities())
+    {
+        var user = db.AspNetUsers.FirstOrDefault(u => u.Id == _userId);
+        MemberName = user == null ? string.Empty : user.MemberName;
+        <main aria-labelledby="title">
+            <h2 id="title" class="space15">@ViewBag.Title</h2>
+            <div class="row">
+                <div class="col-md-8">
+                    <section id="loginForm">
+                        @using (Html.BeginForm("CheckIn", "Shift", null, FormMethod.Post, new { role = "form" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <h4 class="space25">Check In For Your Shift</h4>
+                            <hr />
+                            <h4 class="text-center text-primary">@ViewBag.Message</h4>
+                            <div class="row">
+                                <label class="col-md-2 col-form-label">Member Name</label>
+                                <div class="col-md-10">
+                                    <input name="membername" class="form-control" readonly value="@MemberName" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-md-2 col-form-label">Medical Rank</label>
+                                <div class="col-md-10">
+                                    <select class="form-control" name="medicalrank">
+                                        <option value="Med-13" @(user.MedicalRank=="Med-13"?"selected":string.Empty)>Med-13</option>
+                                        <option value="Med-12" @(user.MedicalRank=="Med-12"?"selected":string.Empty)>Med-12</option>
+                                        <option value="Med-10" @(user.MedicalRank=="Med-10"?"selected":string.Empty)>Med-10</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                &nbsp;<input type="hidden" name="ischeckedin" value="@(user.IsCheckedIn==false?"True":"False")" />
+                            </div>
+                            <div class="row">
+                                <div class="offset-md-2 col-md-10">
+                                    <input type="submit" value="Check in" class="btn btn-primary" @(user.IsCheckedIn?"disabled":string.Empty) />
+                                    <input type="submit" value="Check out" class="btn btn-danger" @(user.IsCheckedIn==false?"disabled":string.Empty) />
+                                    @if (user.IsCheckedIn)
+                    {
+                        <a href="/shift/bagcheck" class="btn btn-success">BAG CHECK</a>
+                    }
+                                </div>
+                            </div>
+                        }
+                    </section>
+                </div>
+            </div>
+        </main>
+    }
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

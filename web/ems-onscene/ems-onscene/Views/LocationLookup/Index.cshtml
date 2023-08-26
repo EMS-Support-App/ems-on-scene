@@ -1,0 +1,42 @@
+﻿@using ems_onscene.Models.EntityModels
+@model List<EMSContent>
+@{
+    ViewBag.Title = "Location Look Up";
+}
+
+<h1 class="amatic">@ViewBag.Title</h1>
+<br />
+
+<div class="text-right">
+    <div class="inlineblock">
+        <form action="?" method="get">
+            <input type="text" name="s" class="form-control-sm" style="width:60%;" />
+            <button class="btn btn-primary">Search</button>
+
+        </form>    
+    </div>
+</div>
+
+<div class="clearfix"></div>
+
+<br />
+
+<div>
+    @foreach (var location in Model)
+    {
+        <div class="statbox widget box box-shadow">
+            <div class="widget-content widget-content-area">
+                <div class="title" style="font-size:24px;color:black;margin-bottom:10px;">
+                    @location.title
+                </div>
+                <div class="content" style="color:#808080">
+
+                    @Html.Raw(location.content)
+
+                </div>
+            </div>
+        </div>
+
+        <hr size="1" style="border-style:double;border-color:black;" />
+    }
+</div>

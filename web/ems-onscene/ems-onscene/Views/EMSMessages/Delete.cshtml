@@ -1,0 +1,64 @@
+﻿@model ems_onscene.Models.EntityModels.EMSMessage
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>EMSMessage</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.MessageTitle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MessageTitle)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MessageText)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MessageText)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MessageTimeSent)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MessageTimeSent)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AspNetUser.MemberName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AspNetUser.MemberName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AspNetUser1.MemberName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AspNetUser1.MemberName)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

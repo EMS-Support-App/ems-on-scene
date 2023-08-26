@@ -1,0 +1,52 @@
+﻿@model IEnumerable<ems_onscene.Models.EntityModels.EMSMessage>
+
+@{
+    ViewBag.Title = "Inbox";
+}
+
+<h2>@ViewBag.Title</h2>
+<div class="row">&nbsp;</div>
+
+
+<div class="text-right">
+    <div class="inlineblock">
+        <form action="?" method="get">
+            <input type="text" name="s" class="form-control-sm" /><button>Search</button>
+        </form>
+    </div>
+    <a href="/emsmessages/create" class="btn btn-primary">Compose</a>
+</div>
+<div class="clearfix"></div>
+<table class="table" style="margin-top:10px;">
+    <tr>
+        <th style="width:70%;">
+            Title
+        </th>
+        <th>
+            From
+        </th>
+        <th>
+            Time
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <a href="/EMSMessages/Details/@item.id">@item.MessageTitle</a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AspNetUser.MemberName)
+            </td>
+            <td>
+                @(item.MessageTimeSent.Date == DateTime.Now.Date? item.MessageTimeSent.ToString("HH:mm") : item.MessageTimeSent.ToString("MM/dd"))
+            </td>
+            <td>
+                @Html.ActionLink("🗑️", "Delete", new { id = item.id })
+            </td>
+        </tr>
+    }
+
+</table>

@@ -1,0 +1,46 @@
+﻿@using ems_onscene.Models.EntityModels
+@model List<AspNetUser>
+@{
+    ViewBag.Title = "See Who's Checked In";
+}
+
+<h2>@ViewBag.Title</h2>
+<br />
+
+<div class="col-xl-5 col-lg-12 col-md-6 col-sm-12 col-12" style="padding:0 !important;">
+    <div class="widget widget-table-one" style="width:350px;padding:15px;margin:0;">
+        <div class="widget-heading">
+            <h7 style="color:dodgerblue;"><b>Members currently checked in on shift:</b></h7>
+        </div>
+
+        @if (Model.Count == 0)
+        {
+            <p> Nobody is checked in at the moment.</p>
+        }
+
+        @foreach (var person in Model)
+        {
+            <div class="widget-content">
+                <div class="transactions-list">
+                    <div class="t-item">
+                        <div class="t-company-name">
+                            <img src="/assets/img/default-profile-pic.jpg" alt="avatar" style="width:45px;padding-right:10px;">
+                            <div class="t-name">
+                                <h4>@person.MemberName </h4>
+                                <p class="meta-date">@person.CheckedInDT.Value.ToLocalTime()</p>
+                            </div>
+
+                        </div>
+                        <div>
+                            <p style="color:dodgerblue;"><span>@person.MedicalRank</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br />
+        }
+    </div>
+</div>
+
+
+

@@ -1,4 +1,22 @@
 ﻿@using Microsoft.AspNet.Identity
+@using ems_onscene.Models.EntityModels
+@{ 
+    string memberName = string.Empty;
+    if (User.Identity.IsAuthenticated)
+    {
+        string _userId = User.Identity.GetUserId();
+        using (emsonsceneEntities db = new  emsonsceneEntities())
+        {
+            AspNetUser aspNetUser = db.AspNetUsers.FirstOrDefault(u => u.Id == _userId);
+            if (aspNetUser != null)
+            {
+                memberName = aspNetUser.MemberName;
+            }
+        }
+
+    }
+}
+
 @if (Request.IsAuthenticated)
 {
     using (Html.BeginForm("LogOff", "Account", new { area = "" }, FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
@@ -7,16 +25,16 @@
 
     <ul class="navbar-nav navbar-right">
         <li>
-            @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: new { area = "" }, htmlAttributes: new { title = "Manage", @class = "nav-link" })
+            @Html.ActionLink(memberName, "Index", "Manage", routeValues: new { area = "" }, htmlAttributes: new { title = "Manage", @class = "nav-link text-uppercase" })
         </li>
-        <li><a class="nav-link" href="javascript:sessionStorage.removeItem('accessToken');$('#logoutForm').submit();">Log off</a></li>
+        <li><a class="nav-link text-uppercase" href="javascript:sessionStorage.removeItem('accessToken');$('#logoutForm').submit();">Log off</a></li>
     </ul>
     }
 }
 else
 {
     <ul class="navbar-nav navbar-right">
-        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: new { area = "" }, htmlAttributes: new { id = "registerLink", @class = "nav-link" })</li>
-        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: new { area = "" }, htmlAttributes: new { id = "loginLink", @class = "nav-link" })</li>
+        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: new { area = "" }, htmlAttributes: new { id = "registerLink", @class = "nav-link text-uppercase" })</li>
+        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: new { area = "" }, htmlAttributes: new { id = "loginLink", @class = "nav-link text-uppercase" })</li>
     </ul>
 }

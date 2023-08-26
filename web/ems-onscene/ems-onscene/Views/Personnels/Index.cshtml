@@ -1,0 +1,84 @@
+﻿@model IEnumerable<ems_onscene.Models.EntityModels.Personnel>
+
+@{
+    ViewBag.Title = "Personnel List";
+}
+
+<h1 class="amatic" style="margin-left:5px;margin-bottom:20px;">@ViewBag.Title</h1>
+
+@*<p>
+        <a href="/personnels/create" class="btn btn-primary">Add New Personnel</a>
+    </p>*@
+
+<div class="widget widget-table-two">
+
+    <div class="widget-heading">
+        <h5 class="" style="margin-top: 5px; margin-bottom: 5px; color:blue;">Active Members:</h5>
+    </div>
+
+    <div class="widget-content">
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th style="width:70%;"><div class="th-content">Name</div></th>
+                        <th><div class="th-content">Rank</div></th>
+                        <th><div class="th-content">Contacts</div></th>
+                    </tr>
+                </thead>
+                @foreach (var item in Model)
+                {
+                    <tbody>
+                        <tr>
+                            <td style="width:70%;"><div class="td-content customer-name"><img src="/assets/img/default-profile-pic.jpg" alt="avatar">@item.Name</div></td>
+                            <td><div class="td-content product-brand">@item.Rank</div></td>
+                            <td><div class="td-content"><a href="/Personnels/Details/@item.id"><u>details</u></a></div></td>
+                        </tr>
+                    </tbody>
+
+                }
+            </table>
+        </div>
+    </div>
+</div>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Rank)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </th>
+        <th></th>
+    </tr>
+
+    @*@foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Rank)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhoneNumber)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+                    @Html.ActionLink("Details", "Details", new { id=item.id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id=item.id })
+                </td>
+            </tr>
+        }*@
+
+</table>

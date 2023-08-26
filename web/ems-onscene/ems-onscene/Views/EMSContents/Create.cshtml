@@ -1,0 +1,89 @@
+﻿@model ems_onscene.Models.EntityModels.EMSContent
+
+@using Microsoft.AspNet.Identity
+@using ems_onscene.Models.EntityModels
+@{
+    ViewBag.Title = "Add New Content";
+    string memberName = string.Empty;
+    string _userId = string.Empty;
+    if (User.Identity.IsAuthenticated)
+    {
+        _userId = User.Identity.GetUserId();
+        using (emsonsceneEntities db = new emsonsceneEntities())
+        {
+            AspNetUser aspNetUser = db.AspNetUsers.FirstOrDefault(u => u.Id == _userId);
+            if (aspNetUser != null)
+            {
+                memberName = aspNetUser.MemberName;
+            }
+        }
+    }
+
+}
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <h1 class="amatic" style="margin-bottom:10px;">@ViewBag.Title</h1>
+    <h2 class="amatic">(Admin Only)</h2>
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group" style="margin-bottom:15px;">
+            @Html.LabelFor(model => model.contenttype, "Content Type", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div style="margin-bottom:30px;">
+                <div class="col-md-10">
+                    <div class="inlineblock">@Html.DropDownList("contenttype", null, htmlAttributes: new { @class = "form-control" })</div>
+                    <a href="/contenttypes" class="btn btn-default" style="margin-top:20px;">(Manage Content Types)</a>
+                    @Html.ValidationMessageFor(model => model.contenttype, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.title, "Title", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.title, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.title, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.content, "New Content", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <textarea name="content" class="form-control ckeditor"></textarea>
+                @Html.ValidationMessageFor(model => model.content, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            <p style="margin-left:20px;">Image (width around 330px recommended):</p>
+            <input style="margin-left:20px;" type="file" id="postcontentfile" name="ufile" onchange="insertImageToCK(event, 'content', 'postcontentfile');" accept=".jpg, .jpeg, .png" />
+        </div>
+        <br />
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.registid, "Name of Registerer", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="hidden" name="registid" class="form-control" readonly value="@_userId" />
+                <input name="Registerer Name" class="form-control" readonly value="@memberName" />
+                @Html.ValidationMessageFor(model => model.registid, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Submit" class="btn btn-primary" style="margin-right:15px;" />
+                @Html.ActionLink("| Back to List", "Index")
+            </div>
+        </div>
+    </div>
+}
+
+
+@section Scripts {
+
+    <script src="~/Scripts/ckeditor/ckeditor.js"></script>
+
+}

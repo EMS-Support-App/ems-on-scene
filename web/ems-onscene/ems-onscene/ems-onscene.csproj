@@ -93,6 +93,7 @@
     </Reference>
     <Reference Include="System.Net.Http.WebRequest" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
@@ -217,13 +218,60 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\ContentTypesController.cs" />
+    <Compile Include="Controllers\EMSContentsController.cs" />
+    <Compile Include="Controllers\EMSMessagesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InfoLookupController.cs" />
+    <Compile Include="Controllers\LocationLookupController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MeController.cs" />
+    <Compile Include="Controllers\PersonnelsController.cs" />
+    <Compile Include="Controllers\ShiftController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\EntityModels\AspNetRole.cs">
+      <DependentUpon>ems_onsceneModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EntityModels\AspNetUser.cs">
+      <DependentUpon>ems_onsceneModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EntityModels\AspNetUserClaim.cs">
+      <DependentUpon>ems_onsceneModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EntityModels\AspNetUserLogin.cs">
+      <DependentUpon>ems_onsceneModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EntityModels\ContentType.cs">
+      <DependentUpon>ems_onsceneModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EntityModels\EMSContent.cs">
+      <DependentUpon>ems_onsceneModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EntityModels\EMSMessage.cs">
+      <DependentUpon>ems_onsceneModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EntityModels\ems_onsceneModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ems_onsceneModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EntityModels\ems_onsceneModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ems_onsceneModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EntityModels\ems_onsceneModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ems_onsceneModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EntityModels\Personnel.cs">
+      <DependentUpon>ems_onsceneModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MeViewModels.cs" />
@@ -360,7 +408,7 @@
     <Content Include="bootstrap\js\bootstrap.js" />
     <Content Include="bootstrap\js\bootstrap.min.js" />
     <Content Include="bootstrap\js\popper.min.js" />
-    <Content Include="Content\acemsoncall.css" />
+    <Content Include="Content\emsonscene.css" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-grid.rtl.css" />
@@ -384,6 +432,16 @@
     <Content Include="images\ACEMS-logo-2023-primary-blue.png" />
     <Content Include="images\loginbg.gif" />
     <Content Include="images\main_logo.png" />
+    <Content Include="Models\EntityModels\ems_onsceneModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ems_onsceneModel.edmx</DependentUpon>
+      <LastGenOutput>ems_onsceneModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\EntityModels\ems_onsceneModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ems_onsceneModel.edmx</DependentUpon>
+      <LastGenOutput>ems_onsceneModel.cs</LastGenOutput>
+    </Content>
     <Content Include="plugins\animate\animate.css" />
     <Content Include="plugins\apex\apexcharts.css" />
     <Content Include="plugins\apex\apexcharts.min.js" />
@@ -1091,6 +1149,13 @@
     <Content Include="Scripts\ckeditor\samples\toolbarconfigurator\lib\codemirror\LICENSE" />
     <Content Include="Scripts\ckeditor\SECURITY.md" />
     <Content Include="Scripts\ckeditor\skins\moono-lisa\readme.md" />
+    <EntityDeploy Include="Models\EntityModels\ems_onsceneModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ems_onsceneModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\EntityModels\ems_onsceneModel.edmx.diagram">
+      <DependentUpon>ems_onsceneModel.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\ckeditor3\adapters\jquery.js" />
     <Content Include="Scripts\ckeditor3\CHANGES.html" />
@@ -1655,6 +1720,33 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Scripts\knockout.validation.min.js.map" />
+    <Content Include="Views\Admin\Edit.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\ContentTypes\Create.cshtml" />
+    <Content Include="Views\ContentTypes\Delete.cshtml" />
+    <Content Include="Views\ContentTypes\Details.cshtml" />
+    <Content Include="Views\ContentTypes\Edit.cshtml" />
+    <Content Include="Views\ContentTypes\Index.cshtml" />
+    <Content Include="Views\EMSContents\Create.cshtml" />
+    <Content Include="Views\EMSContents\Delete.cshtml" />
+    <Content Include="Views\EMSContents\Details.cshtml" />
+    <Content Include="Views\EMSContents\Edit.cshtml" />
+    <Content Include="Views\EMSContents\Index.cshtml" />
+    <Content Include="Views\EMSMessages\Create.cshtml" />
+    <Content Include="Views\EMSMessages\Delete.cshtml" />
+    <Content Include="Views\EMSMessages\Details.cshtml" />
+    <Content Include="Views\EMSMessages\Index.cshtml" />
+    <Content Include="Views\EMSMessages\Sent.cshtml" />
+    <Content Include="Views\InfoLookup\Index.cshtml" />
+    <Content Include="Views\LocationLookup\Index.cshtml" />
+    <Content Include="Views\Personnels\Create.cshtml" />
+    <Content Include="Views\Personnels\Delete.cshtml" />
+    <Content Include="Views\Personnels\Details.cshtml" />
+    <Content Include="Views\Personnels\Edit.cshtml" />
+    <Content Include="Views\Personnels\Index.cshtml" />
+    <Content Include="Views\Shift\BagCheck.cshtml" />
+    <Content Include="Views\Shift\CheckIn.cshtml" />
+    <Content Include="Views\Shift\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1729,6 +1821,9 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

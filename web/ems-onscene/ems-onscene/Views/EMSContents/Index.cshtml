@@ -1,0 +1,54 @@
+﻿@model IEnumerable<ems_onscene.Models.EntityModels.EMSContent>
+
+@{
+    ViewBag.Title = "Contents List";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div class="text-right">
+    <div class="inlineblock">
+            <a href="/EMSContents/create" class="btn btn-success">Add New Content</a>
+    </div>
+</div>
+<table class="table" style="margin-top:25px;">
+    <tr>
+        <th style="width:70%;">
+            Title
+        </th>
+        <th>
+            Type
+        </th>
+        <th>
+            Last Updated
+        </th>
+        <th></th>
+    </tr>
+
+    @{
+   
+    }
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            <a href="/EMSContents/Details/@item.id" style="color: black; text-decoration: none; ">@item.title</a>
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.contenttype)
+        </td>
+        <td>
+            @if (item.updatedt == null){
+                @item.registdt.ToString("MM/dd/yy")
+            }
+            else{
+                @item.updatedt.Value.ToString("MM/dd/yy")
+            }
+        </td>
+        <td>
+            <a href="/EMSContents/Delete/@item.id" style="color: black; text-decoration: none;">🗑️</a>
+        </td>
+    </tr>
+}
+
+</table>

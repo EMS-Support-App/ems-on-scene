@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[AspNetUsers] (
     [Id]                   NVARCHAR (128) NOT NULL,
-    [Hometown]             NVARCHAR (MAX) NULL,
+    [MemberName]           NVARCHAR (MAX) NULL,
     [Email]                NVARCHAR (256) NULL,
     [EmailConfirmed]       BIT            NOT NULL,
     [PasswordHash]         NVARCHAR (MAX) NULL,
@@ -12,6 +12,9 @@
     [LockoutEnabled]       BIT            NOT NULL,
     [AccessFailedCount]    INT            NOT NULL,
     [UserName]             NVARCHAR (256) NOT NULL,
+    [MedicalRank]          NVARCHAR (50)  NULL,
+    [IsCheckedIn]          BIT            CONSTRAINT [DF_AspNetUsers_IsCheckedIn] DEFAULT ((0)) NOT NULL,
+    [CheckedInDT]          DATETIME       NULL,
     CONSTRAINT [PK_dbo.AspNetUsers] PRIMARY KEY CLUSTERED ([Id] ASC)
 );
 

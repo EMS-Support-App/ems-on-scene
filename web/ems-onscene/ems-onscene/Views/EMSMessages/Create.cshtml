@@ -1,0 +1,95 @@
+﻿@using Microsoft.AspNet.Identity
+@using ems_onscene.Models.EntityModels
+@model ems_onscene.Models.EntityModels.EMSMessage
+@{
+    ViewBag.Title = "Create";
+    string memberName = string.Empty;
+    string _userId = string.Empty;
+    if (User.Identity.IsAuthenticated)
+    {
+        _userId = User.Identity.GetUserId();
+        using (emsonsceneEntities db = new emsonsceneEntities())
+        {
+            AspNetUser aspNetUser = db.AspNetUsers.FirstOrDefault(u => u.Id == _userId);
+            if (aspNetUser != null)
+            {
+                memberName = aspNetUser.MemberName;
+            }
+        }
+
+    }
+}
+
+
+
+<h2>Create</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>EMSMessage</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.MessageFrom, "From", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="hidden" name="MessageFrom" class="form-control" readonly value="@_userId" />
+                <input name="MessageFromName" class="form-control" readonly value="@memberName" />
+                @Html.ValidationMessageFor(model => model.MessageFrom, "", new { @class = "text-danger" })
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MessageTo, "To", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("MessageTo", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.MessageTo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MessageTitle, "Message Title", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.MessageTitle, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.MessageTitle, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MessageText, "Message", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <textarea name="MessageText" class="form-control ckeditor"></textarea>
+                @Html.ValidationMessageFor(model => model.MessageText, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            Image: <input type="file" id="postcontentfile" name="ufile" onchange="insertImageToCK(event, 'content', 'postcontentfile');" accept=".jpg, .jpeg, .png" />
+        </div>
+
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.MessageTimeSent, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.MessageTimeSent, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.MessageTimeSent, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Send" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+@section Scripts {
+
+    <script src="~/Scripts/ckeditor/ckeditor.js"></script>
+
+}

@@ -11,8 +11,8 @@ namespace ems_onscene.Models
         [Display(Name = "Email")]
         public string Email { get; set; }
 
-        [Display(Name = "Hometown")]
-        public string Hometown { get; set; }
+        [Display(Name = "Member Name")]
+        public string MemberName { get; set; }
     }
 
     public class ExternalLoginListViewModel
@@ -85,8 +85,8 @@ namespace ems_onscene.Models
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
-        [Display(Name = "Hometown")]
-        public string Hometown { get; set; }
+        [Display(Name = "MemberName")]
+        public string MemberName { get; set; }
     }
 
     public class ResetPasswordViewModel

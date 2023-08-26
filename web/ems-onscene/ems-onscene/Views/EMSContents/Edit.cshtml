@@ -1,0 +1,121 @@
+﻿@model ems_onscene.Models.EntityModels.EMSContent
+@using Microsoft.AspNet.Identity
+@using ems_onscene.Models.EntityModels
+@{
+    ViewBag.Title = "Edit Content";
+    string memberName = string.Empty;
+    string _userId = string.Empty;
+    string originalRegistererName = string.Empty;
+    string _registererId = string.Empty;
+    if (User.Identity.IsAuthenticated)
+    {
+        _userId = User.Identity.GetUserId();
+        _registererId = Model.registid;
+        using (emsonsceneEntities db = new emsonsceneEntities())
+        {
+            AspNetUser aspNetUser = db.AspNetUsers.FirstOrDefault(u => u.Id == _userId);
+            AspNetUser originalRegistererASP = db.AspNetUsers.FirstOrDefault(x => x.Id == _registererId);
+            if (aspNetUser != null)
+            {
+                memberName = aspNetUser.MemberName;
+            }
+            if (originalRegistererASP != null)
+            {
+                originalRegistererName = originalRegistererASP.MemberName;
+            }
+        }
+    }
+    
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.id)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.contenttype, "Content Type", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("contenttype", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.contenttype, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.title, "Title", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.title, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.title, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.content, "Content", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <textarea name="content" class="form-control ckeditor">@Model.content</textarea>
+                @Html.ValidationMessageFor(model => model.content, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <p style="margin-left:15px;"> Add Image (width ~330px recommended):</p>
+                <input type="file" id="postcontentfile" style="margin-left:15px;" name="ufile" onchange="insertImageToCK(event, 'content', 'postcontentfile');" accept=".jpg, .jpeg, .png" />
+            </div>
+            <br />
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.registid, "Registered By", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="hidden" name="registid" class="form-control" readonly value="@Model.registid" />
+                <input name="Orginal Registerer" class="form-control" readonly value="@originalRegistererName" />
+                @Html.ValidationMessageFor(model => model.registid, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.registdt, "Register Date", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input name="registdt" class="form-control" readonly value="@Model.registdt" />
+                @Html.ValidationMessageFor(model => model.registdt, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.updateid, "Updated By", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="hidden" name="updateid" class="form-control" readonly value="@_userId" />
+                <input name="Registerer Name" class="form-control" readonly value="@memberName" />
+                @Html.ValidationMessageFor(model => model.updateid, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.updatedt, "Time of Update", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="hidden" name="updatedt" class="form-control" readonly value="@DateTime.Now" />
+                <input name="Time of Update" class="form-control" readonly value="@DateTime.Now" />
+                @Html.ValidationMessageFor(model => model.updatedt, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+@section Scripts {
+
+    <script src="~/Scripts/ckeditor/ckeditor.js"></script>
+
+}

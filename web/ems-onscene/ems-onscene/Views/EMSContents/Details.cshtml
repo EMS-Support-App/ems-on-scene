@@ -1,0 +1,91 @@
+﻿@model ems_onscene.Models.EntityModels.EMSContent
+
+@{
+    ViewBag.Title = "EMS Content Details";
+}
+
+<h1 class="amatic">@ViewBag.Title</h1>
+<hr />
+
+
+<div class="statbox widget box box-shadow">
+    <div class="widget-content widget-content-area">
+        <dl class="dl-horizontal">
+            <dt>
+                Content Type
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.contenttype)
+            </dd>
+
+            <dt>
+                Title
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.title)
+            </dd>
+
+            <dt>
+                Content
+            </dt>
+
+            <dd>
+                @Html.Raw(Model.content)
+            </dd>
+
+            <dt>
+                Date Registered
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.registdt)
+            </dd>
+
+            <dt>
+                Date Updated
+            </dt>
+
+            <dd>
+                @if (Model.updatedt != null)
+                {
+                    @Html.DisplayFor(model => model.updatedt)
+                }
+                else
+                {
+                    <p>None</p>
+                }
+            </dd>
+
+            <dt>
+                Registered By
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.AspNetUser.MemberName)
+            </dd>
+
+            <dt>
+                Last Updated By
+            </dt>
+
+            <dd>
+                @if (Model.AspNetUser1 != null)
+                {
+                    @Html.DisplayFor(model => model.AspNetUser1.MemberName)
+                }
+                else
+                {
+                    <p>None</p>
+                }
+            </dd>
+
+        </dl>
+    </div>
+</div>
+
+<p style="margin-top:20px;">
+    <a href="/emscontents/edit/@Model.id" class="btn btn-success" style="margin-right:15px;">Edit</a>
+    @Html.ActionLink("|  Back to List", "Index")
+</p>
