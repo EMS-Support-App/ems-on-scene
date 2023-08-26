@@ -1,0 +1,42 @@
+﻿body {
+}
+h1{
+    font-size:40px;
+}
+.inlineblock {
+    display:inline-block;
+}
+dt{
+    margin-bottom:15px;
+}
+
+.navbar{
+    padding:0;
+}
+
+#accordionExample a {
+    text-decoration:none;
+}
+
+.amatic {
+    font-family: 'Amatic SC', cursive;
+    font-weight: 800;
+}
+.space15{
+    margin-bottom:15px;
+}
+.space25 {
+    margin-bottom: 25px;
+}
+
+span {
+    text-decoration:none;
+}
+a {
+    color: gray;
+}
+
+hr{
+    margin-top:15px;
+    margin-bottom:15px;
+}

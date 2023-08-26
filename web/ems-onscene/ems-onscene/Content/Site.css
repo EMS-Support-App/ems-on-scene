@@ -30,3 +30,35 @@ textarea {
         padding: 10px 15px;
     }
 }
+
+/* Common styles for all buttons */
+.my_button {
+    padding: 100px 50px;
+    text-decoration: none;
+    width: 330px;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    display: block;
+    margin: 7px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #6a82bc;
+    color: #fff;
+}
+
+.med10button {
+    background-color: #a5b4d6;
+}
+.med12button {
+    background-color: #879bc9;
+}
+.med13button {
+    background-color: #6a82bc;
+}
+
+/* Hover effect for all buttons */
+    .my_button:hover {
+        background-color: #a2b1d5;
+        color: #fff;
+    }
