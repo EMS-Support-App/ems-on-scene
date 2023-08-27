@@ -21,6 +21,7 @@
         <AssociationConnector Association="Model.FK_EMSMessage_EMSMessage_TO" />
         <AssociationConnector Association="Model.FK_EMSContent_ContentType" />
         <AssociationConnector Association="Model.AspNetUserRoles" />
+        <EntityTypeShape EntityType="Model.EMSOrganization" Width="1.5" PointX="3.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

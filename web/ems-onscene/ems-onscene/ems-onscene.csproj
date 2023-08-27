@@ -254,6 +254,9 @@
     <Compile Include="Models\EntityModels\EMSMessage.cs">
       <DependentUpon>ems_onsceneModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\EntityModels\EMSOrganization.cs">
+      <DependentUpon>ems_onsceneModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\EntityModels\ems_onsceneModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

@@ -90,6 +90,15 @@
           <Property Name="MessageText" Type="nvarchar(max)" Nullable="false" />
           <Property Name="MessageTimeSent" Type="datetime" Nullable="false" />
         </EntityType>
+        <EntityType Name="EMSOrganization">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrganizationName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="LogoImageUrl" Type="nvarchar(max)" />
+          <Property Name="HomepageImageUrl" Type="nvarchar(max)" />
+        </EntityType>
         <EntityType Name="Personnel">
           <Key>
             <PropertyRef Name="id" />
@@ -225,6 +234,7 @@
           <EntitySet Name="ContentType" EntityType="Self.ContentType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EMSContent" EntityType="Self.EMSContent" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EMSMessage" EntityType="Self.EMSMessage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EMSOrganization" EntityType="Self.EMSOrganization" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Personnel" EntityType="Self.Personnel" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -308,6 +318,7 @@
             <End Role="AspNetRole" EntitySet="AspNetRoles" />
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
           </AssociationSet>
+          <EntitySet Name="EMSOrganizations" EntityType="Model.EMSOrganization" />
         </EntityContainer>
         <EntityType Name="AspNetRole">
           <Key>
@@ -504,6 +515,15 @@
           <End Type="Model.AspNetRole" Role="AspNetRole" Multiplicity="*" />
           <End Type="Model.AspNetUser" Role="AspNetUser" Multiplicity="*" />
         </Association>
+        <EntityType Name="EMSOrganization">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrganizationName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="LogoImageUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HomepageImageUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -611,6 +631,16 @@
               <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="EMSOrganizations">
+            <EntityTypeMapping TypeName="Model.EMSOrganization">
+              <MappingFragment StoreEntitySet="EMSOrganization">
+                <ScalarProperty Name="HomepageImageUrl" ColumnName="HomepageImageUrl" />
+                <ScalarProperty Name="LogoImageUrl" ColumnName="LogoImageUrl" />
+                <ScalarProperty Name="OrganizationName" ColumnName="OrganizationName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

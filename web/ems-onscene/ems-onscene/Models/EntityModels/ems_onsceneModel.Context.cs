@@ -33,5 +33,6 @@ namespace ems_onscene.Models.EntityModels
         public virtual DbSet<EMSContent> EMSContents { get; set; }
         public virtual DbSet<EMSMessage> EMSMessages { get; set; }
         public virtual DbSet<Personnel> Personnels { get; set; }
+        public virtual DbSet<EMSOrganization> EMSOrganizations { get; set; }
     }
 }
