@@ -7,12 +7,22 @@ We are trying to make this app  more accessible for beginner developers, and are
 ### What our Appp Looks Like:
 <img src="./screenshots/screenshot001.png" style="width:220px;">   <img src="./screenshots/screenshot002.png" style="width:220px;">   <img src="./screenshots/check-in-screenshot.png" style="width:220px;">   <img src="./screenshots/check-in-screenshot2.png" style="width:220px;">   <img src="./screenshots/bag-check-screenshot.png" style="width:220px;">   <img src="./screenshots/see-whos-checked-in-screenshot.png" style="width:220px;">   <img src="./screenshots/personnel-screenshot.png" style="width:220px;">   <img src="./screenshots/personnel-details-screenshot.png" style="width:220px;">   <img src="./screenshots/location-lookup-screenshot.png" style="width:220px;">
 
-### How to use this app for your own EMS Team:
-1. clone this project repo
-2. deploy your own mobile web to a hosting server website. See: [“How to deploy web application to hosting server”](https://github.com/J-S-Lab/ems-on-scene/blob/main/web/ems-onscene/README.md).
-3. open your mobile web page, register, and give yourself "admin" usage rights.
-4. go to the Admin Menu, then to "Organization Settings." Enter in your ems team's name, logo, and other information.
-5. go throught the Admin Menu pages, and fill in information to suit your team's structure and needs.
+### Guide to Utilizing this App for Your EMS Team:
+
+If you're looking to streamline your EMS team's operations, this app provides a powerful solution. Follow these steps to set it up for your team's specific requirements:
+
+1.  **Clone the Project Repository:** Begin by cloning the project repository to your local environment. This will give you access to the app's source code and resources.
+    
+2.  **Deploy Your Custom Mobile Web:** Once you have the repository, deploy your customized mobile web version onto a hosting server website. Detailed instructions on how to do this can be found in the [“How to Deploy a Web Application to a Hosting Server” guide](https://github.com/J-S-Lab/ems-on-scene/blob/main/web/ems-onscene/README.md). This step ensures your app is accessible to your team members.
+    
+3.  **Register and Grant "Admin" Privileges:** Access the deployed mobile web and complete the registration process. To ensure you have full control over the app's features, grant yourself "admin" usage rights during the registration.
+    
+4.  **Configure Organization Settings:** Navigate to the Admin Menu and find the "Organization Settings" section. Here, input essential details such as your EMS team's name, logo, and other pertinent information. Customizing these settings personalizes the app for your team.
+    
+5.  **Tailor Information to Your Team:** Explore the Admin Menu and delve into the various pages available. These pages are designed to accommodate your team's unique structure and needs. Fill in the information as required to accurately reflect your team's hierarchy, roles, and any other relevant details.
+    
+
+By following these steps, you'll transform this app into a powerful tool that aligns with your EMS team's requirements. Seamlessly adapt the app's features, structure, and information to enhance your team's efficiency and communication during critical operations.
   
 ### To-Do List For Those Looking to Contribute to This Open Source:
  - [x] ["How to deploy web application to hosting server”](https://github.com/J-S-Lab/ems-on-scene/blob/main/web/ems-onscene/README.md) 
