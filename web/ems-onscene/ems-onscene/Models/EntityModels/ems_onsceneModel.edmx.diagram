@@ -25,6 +25,9 @@
         <EntityTypeShape EntityType="Model.EMSRole" Width="1.5" PointX="0.75" PointY="4.625" />
         <AssociationConnector Association="Model.FK_AspNetUsers_EMSRole" />
         <AssociationConnector Association="Model.FK_Personnel_EMSRole" />
+        <EntityTypeShape EntityType="Model.EMSBagCheck" Width="1.5" PointX="9.625" PointY="0.875" />
+        <EntityTypeShape EntityType="Model.EMSBagCheckDetail" Width="1.5" PointX="7.375" PointY="1" />
+        <AssociationConnector Association="Model.FK_EMSBagCheck_EMSBagCheckDetail" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

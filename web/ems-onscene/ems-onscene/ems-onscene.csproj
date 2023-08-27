@@ -250,6 +250,12 @@
     <Compile Include="Models\EntityModels\ContentType.cs">
       <DependentUpon>ems_onsceneModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\EntityModels\EMSBagCheck.cs">
+      <DependentUpon>ems_onsceneModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EntityModels\EMSBagCheckDetail.cs">
+      <DependentUpon>ems_onsceneModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\EntityModels\EMSContent.cs">
       <DependentUpon>ems_onsceneModel.tt</DependentUpon>
     </Compile>
