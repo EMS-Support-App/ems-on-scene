@@ -23,11 +23,8 @@ We are trying to make this app  more accessible for beginner developers, and are
  - [ ] Digitalizing the Run Report
 
 ### Screenshots
-
-![Home screen](./screenshots/screenshot001.png) 
-![Side menu screen](./screenshots/screenshot002.png)
-
-<img src="./screenshots/screenshot001.png">
+<img src="./screenshots/screenshot001.png" style="width:220px;">
+<img src="./screenshots/screenshot002.png" style="width:220px;">
 
 ### Contributing
 Contributions are welcome! Whether you've found a bug, want to add a new feature, or just have a suggestion, feel free to open an issue or pull request.
