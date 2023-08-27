@@ -10,51 +10,53 @@
         MemberName = user == null ? string.Empty : user.MemberName;
         var medicalRanks = db.EMSRoles.ToList();
         <main aria-labelledby="title">
-            <h2 id="title" class="space15">@ViewBag.Title</h2>
-            <div class="row">
-                <div class="col-md-8">
-                    <section id="loginForm">
-                        @using (Html.BeginForm("CheckIn", "Shift", null, FormMethod.Post, new { role = "form" }))
-                        {
-                            @Html.AntiForgeryToken()
-                            <h4 class="space25">Check In For Your Shift</h4>
-                            <hr />
-                            <h4 class="text-center text-primary">@ViewBag.Message</h4>
-                            <div class="row">
-                                <label class="col-md-2 col-form-label">Member Name</label>
-                                <div class="col-md-10">
-                                    <input name="membername" class="form-control" readonly value="@MemberName" />
-                                </div>
-                            </div>
-                            <div class="row">
-                                <label class="col-md-2 col-form-label">Medical Rank</label>
-                                <div class="col-md-10">
-                                    <select class="form-control" name="medicalrank">
-                                        @foreach(var medicalRank in medicalRanks)
+        <h1 class="amatic">@ViewBag.Title</h1>
+
+        <div class="row">
+            <div class="col-md-8">
+                <section id="loginForm">
+                    @using (Html.BeginForm("CheckIn", "Shift", null, FormMethod.Post, new { role = "form" }))
                     {
-                        <option value="@medicalRank.MedicalRank" @(user.MedicalRank==medicalRank.MedicalRank?"selected":string.Empty)>@medicalRank.MedicalRank</option>
+                        @Html.AntiForgeryToken()
+                        <h4 class="space25">Check In For Your Shift</h4>
+                        <hr />
+                        <h4 class="text-center text-primary">@ViewBag.Message</h4>
+                        <div class="row">
+                            <label class="col-md-2 col-form-label">Member Name</label>
+                            <div class="col-md-10">
+                                <input name="membername" class="form-control" readonly value="@MemberName" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-2 col-form-label">Medical Rank</label>
+                            <div class="col-md-10">
+                                <select class="form-control" name="medicalrank">
+                                    @foreach (var medicalRank in medicalRanks)
+                                    {
+                                        <option value="@medicalRank.MedicalRank" @(user.MedicalRank == medicalRank.MedicalRank ? "selected" : string.Empty)>@medicalRank.MedicalRank</option>
+                                    }
+                                </select>
+                            </div>
+                        </div
+                        <br />
+                        <div class="row">
+                            &nbsp;<input type="hidden" name="ischeckedin" value="@(user.IsCheckedIn==false?"True":"False")" />
+                        </div>
+                        <div class="row">
+                            <div class="offset-md-2 col-md-10">
+                                <input type="submit" value="Check in" class="btn btn-primary" @(user.IsCheckedIn ? "disabled" : string.Empty) />
+                                <input type="submit" value="Check out" class="btn btn-danger" @(user.IsCheckedIn == false ? "disabled" : string.Empty) />
+                                @if (user.IsCheckedIn)
+                                {
+                                    <a href="/shift/bagcheck" class="btn btn-success">BAG CHECK</a>
+                                }
+                            </div>
+                        </div>
                     }
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row">
-                                &nbsp;<input type="hidden" name="ischeckedin" value="@(user.IsCheckedIn==false?"True":"False")" />
-                            </div>
-                            <div class="row">
-                                <div class="offset-md-2 col-md-10">
-                                    <input type="submit" value="Check in" class="btn btn-primary" @(user.IsCheckedIn?"disabled":string.Empty) />
-                                    <input type="submit" value="Check out" class="btn btn-danger" @(user.IsCheckedIn==false?"disabled":string.Empty) />
-                                    @if (user.IsCheckedIn)
-                    {
-                        <a href="/shift/bagcheck" class="btn btn-success">BAG CHECK</a>
-                    }
-                                </div>
-                            </div>
-                        }
-                    </section>
-                </div>
+                </section>
             </div>
-        </main>
+        </div>
+    </main>
     }
 }
 
