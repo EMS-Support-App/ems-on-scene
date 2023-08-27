@@ -57,5 +57,6 @@ namespace ems_onscene.Models.EntityModels
         public virtual ICollection<EMSMessage> EMSMessages1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetRole> AspNetRoles { get; set; }
+        public virtual EMSRole EMSRole { get; set; }
     }
 }

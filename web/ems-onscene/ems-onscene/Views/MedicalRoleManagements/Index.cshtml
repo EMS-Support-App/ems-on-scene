@@ -1,0 +1,27 @@
+﻿@model IEnumerable<ems_onscene.Models.EntityModels.EMSRole>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<p style="float:right;">
+    <a href="/MedicalRoleManagements/Create" class="btn btn-primary">Add New</a>
+</p>
+<h2>Medical Roles</h2>
+<table class="table">
+    <tr>
+        <th>Medical Role</th>
+        <th>&nbsp;</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.MedicalRank</td>
+            <td>
+                @Html.ActionLink("Delete", "Delete", new { id = item.MedicalRank })
+            </td>
+        </tr>
+    }
+
+</table>

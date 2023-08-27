@@ -227,6 +227,7 @@
     <Compile Include="Controllers\LocationLookupController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MeController.cs" />
+    <Compile Include="Controllers\MedicalRoleManagementsController.cs" />
     <Compile Include="Controllers\OrganizationSettingsController.cs" />
     <Compile Include="Controllers\PersonnelsController.cs" />
     <Compile Include="Controllers\ShiftController.cs" />
@@ -256,6 +257,9 @@
       <DependentUpon>ems_onsceneModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EntityModels\EMSOrganization.cs">
+      <DependentUpon>ems_onsceneModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EntityModels\EMSRole.cs">
       <DependentUpon>ems_onsceneModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EntityModels\ems_onsceneModel.Context.cs">
@@ -1758,6 +1762,11 @@
     <Content Include="Views\OrganizationSettings\Details.cshtml" />
     <Content Include="Views\OrganizationSettings\Edit.cshtml" />
     <Content Include="Views\OrganizationSettings\Index.cshtml" />
+    <Content Include="Views\MedicalRoleManagements\Create.cshtml" />
+    <Content Include="Views\MedicalRoleManagements\Delete.cshtml" />
+    <Content Include="Views\MedicalRoleManagements\Details.cshtml" />
+    <Content Include="Views\MedicalRoleManagements\Edit.cshtml" />
+    <Content Include="Views\MedicalRoleManagements\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

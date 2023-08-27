@@ -99,6 +99,12 @@
           <Property Name="LogoImageUrl" Type="nvarchar(max)" />
           <Property Name="HomepageImageUrl" Type="nvarchar(max)" />
         </EntityType>
+        <EntityType Name="EMSRole">
+          <Key>
+            <PropertyRef Name="MedicalRank" />
+          </Key>
+          <Property Name="MedicalRank" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="Personnel">
           <Key>
             <PropertyRef Name="id" />
@@ -109,6 +115,18 @@
           <Property Name="Rank" Type="nvarchar" MaxLength="50" />
           <Property Name="PhoneNumber" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <Association Name="FK_AspNetUsers_EMSRole">
+          <End Role="EMSRole" Type="Self.EMSRole" Multiplicity="0..1" />
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EMSRole">
+              <PropertyRef Name="MedicalRank" />
+            </Principal>
+            <Dependent Role="AspNetUsers">
+              <PropertyRef Name="MedicalRank" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -225,6 +243,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Personnel_EMSRole">
+          <End Role="EMSRole" Type="Self.EMSRole" Multiplicity="0..1" />
+          <End Role="Personnel" Type="Self.Personnel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EMSRole">
+              <PropertyRef Name="MedicalRank" />
+            </Principal>
+            <Dependent Role="Personnel">
+              <PropertyRef Name="Rank" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="ModelStoreContainer">
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
@@ -235,7 +265,12 @@
           <EntitySet Name="EMSContent" EntityType="Self.EMSContent" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EMSMessage" EntityType="Self.EMSMessage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EMSOrganization" EntityType="Self.EMSOrganization" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EMSRole" EntityType="Self.EMSRole" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Personnel" EntityType="Self.Personnel" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_AspNetUsers_EMSRole" Association="Self.FK_AspNetUsers_EMSRole">
+            <End Role="EMSRole" EntitySet="EMSRole" />
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
@@ -271,6 +306,10 @@
           <AssociationSet Name="FK_EMSMessage_EMSMessage_TO" Association="Self.FK_EMSMessage_EMSMessage_TO">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="EMSMessage" EntitySet="EMSMessage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Personnel_EMSRole" Association="Self.FK_Personnel_EMSRole">
+            <End Role="EMSRole" EntitySet="EMSRole" />
+            <End Role="Personnel" EntitySet="Personnel" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -319,6 +358,15 @@
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
           </AssociationSet>
           <EntitySet Name="EMSOrganizations" EntityType="Model.EMSOrganization" />
+          <EntitySet Name="EMSRoles" EntityType="Model.EMSRole" />
+          <AssociationSet Name="FK_AspNetUsers_EMSRole" Association="Model.FK_AspNetUsers_EMSRole">
+            <End Role="EMSRole" EntitySet="EMSRoles" />
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Personnel_EMSRole" Association="Model.FK_Personnel_EMSRole">
+            <End Role="EMSRole" EntitySet="EMSRoles" />
+            <End Role="Personnel" EntitySet="Personnels" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="AspNetRole">
           <Key>
@@ -376,6 +424,7 @@
           <NavigationProperty Name="EMSMessages" Relationship="Model.FK_EMSMessage_EMSMessage_FROM" FromRole="AspNetUser" ToRole="EMSMessage" />
           <NavigationProperty Name="EMSMessages1" Relationship="Model.FK_EMSMessage_EMSMessage_TO" FromRole="AspNetUser" ToRole="EMSMessage" />
           <NavigationProperty Name="AspNetRoles" Relationship="Model.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
+          <NavigationProperty Name="EMSRole" Relationship="Model.FK_AspNetUsers_EMSRole" FromRole="AspNetUser" ToRole="EMSRole" />
         </EntityType>
         <EntityType Name="ContentType">
           <Key>
@@ -422,6 +471,7 @@
           <Property Name="Email" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="Rank" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="EMSRole" Relationship="Model.FK_Personnel_EMSRole" FromRole="Personnel" ToRole="EMSRole" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Type="Model.AspNetUser" Role="AspNetUser" Multiplicity="1">
@@ -524,6 +574,38 @@
           <Property Name="LogoImageUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="HomepageImageUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="EMSRole">
+          <Key>
+            <PropertyRef Name="MedicalRank" />
+          </Key>
+          <Property Name="MedicalRank" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Model.FK_AspNetUsers_EMSRole" FromRole="EMSRole" ToRole="AspNetUser" />
+          <NavigationProperty Name="Personnels" Relationship="Model.FK_Personnel_EMSRole" FromRole="EMSRole" ToRole="Personnel" />
+        </EntityType>
+        <Association Name="FK_AspNetUsers_EMSRole">
+          <End Type="Model.EMSRole" Role="EMSRole" Multiplicity="0..1" />
+          <End Type="Model.AspNetUser" Role="AspNetUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EMSRole">
+              <PropertyRef Name="MedicalRank" />
+            </Principal>
+            <Dependent Role="AspNetUser">
+              <PropertyRef Name="MedicalRank" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Personnel_EMSRole">
+          <End Type="Model.EMSRole" Role="EMSRole" Multiplicity="0..1" />
+          <End Type="Model.Personnel" Role="Personnel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EMSRole">
+              <PropertyRef Name="MedicalRank" />
+            </Principal>
+            <Dependent Role="Personnel">
+              <PropertyRef Name="Rank" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -638,6 +720,13 @@
                 <ScalarProperty Name="LogoImageUrl" ColumnName="LogoImageUrl" />
                 <ScalarProperty Name="OrganizationName" ColumnName="OrganizationName" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EMSRoles">
+            <EntityTypeMapping TypeName="Model.EMSRole">
+              <MappingFragment StoreEntitySet="EMSRole">
+                <ScalarProperty Name="MedicalRank" ColumnName="MedicalRank" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
