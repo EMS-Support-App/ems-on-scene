@@ -25,7 +25,6 @@ We are trying to make this app  more accessible for beginner developers, and are
 ### Screenshots
 
 ![Home screen](./screenshots/screenshot001.png)
-
 ![Side menu screen](./screenshots/screenshot002.png)
 
 ### Contributing
