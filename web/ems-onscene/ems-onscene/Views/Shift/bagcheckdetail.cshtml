@@ -6,7 +6,7 @@
     int? detailid = int.TryParse(Request["detailid"], out _detailid) ? (int?)_detailid : null;
     if (Model != null)
     {
-        <form action="?">
+        <form action="?" class="text-center">
             <input type="hidden" name="id" value="@Model.Id" />
             @{
                 EMSBagCheckDetail bagcheckDetail = detailid == null ? Model.EMSBagCheckDetails.OrderBy(d => d.Id).FirstOrDefault() : Model.EMSBagCheckDetails.FirstOrDefault(d => d.Id == detailid);

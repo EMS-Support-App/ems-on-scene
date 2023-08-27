@@ -55,8 +55,13 @@ textarea {
     transition: background-color 0.3s ease;
     margin: 7px 15px;
     font-size: 16px;
-    background-color: #6a82bc;
+    background-color: #ebf1f7;
     color: #fff;
+    display:inline-block;
+}
+.bagcheck-detail li {
+    color: initial;
+    text-align:left;
 }
 .med10button {
     background-color: #a5b4d6;
