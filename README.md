@@ -4,6 +4,16 @@
 *The objective is to share this app with other EMS teams out there who may be interested in taking this app and adapting it for their own teams. 
 We are trying to make this app  more accessible for beginner developers, and are trying to create helpful tips and how-to guidelines.*
 
+### What our Appp Looks Like:
+<img src="./screenshots/screenshot001.png" style="width:220px; margin-right:15px;">
+<img src="./screenshots/screenshot002.png" style="width:220px;">
+<img src="./screenshots/check-in-screenshot.png" style="width:220px;">
+<img src="./screenshots/check-in-screenshot2.png" style="width:220px;">
+<img src="./screenshots/bag-check-screenshot.png" style="width:220px;">
+
+
+
+
 ### To-Do List For Those Looking to Contribute to This Open Source:
  - [x] ["How to deploy web application to hosting server”](https://github.com/J-S-Lab/ems-on-scene/blob/main/web/ems-onscene/README.md) 
  - [ ] [“How to setup Development Environment Variable for ios”](https://github.com/J-S-Lab/ems-on-scene/blob/main/cordova/emsoncall/ios.md)
@@ -21,9 +31,6 @@ We are trying to make this app  more accessible for beginner developers, and are
  - [ ] Push Notification for in-app Messages
  - [ ] Real-Time Location Sharing for People Checked In on Shift
  - [ ] Digitalizing the Run Report
-
-### Screenshots
-<img src="./screenshots/screenshot001.png" style="width:220px;"><img src="./screenshots/screenshot002.png" style="width:220px;">
 
 ### Contributing
 Contributions are welcome! Whether you've found a bug, want to add a new feature, or just have a suggestion, feel free to open an issue or pull request.
