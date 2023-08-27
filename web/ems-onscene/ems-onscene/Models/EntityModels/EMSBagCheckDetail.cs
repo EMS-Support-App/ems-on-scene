@@ -12,14 +12,12 @@ namespace ems_onscene.Models.EntityModels
     using System;
     using System.Collections.Generic;
     
-    public partial class Personnel
+    public partial class EMSBagCheckDetail
     {
-        public int id { get; set; }
-        public string Name { get; set; }
-        public string Email { get; set; }
-        public string Rank { get; set; }
-        public string PhoneNumber { get; set; }
+        public int Id { get; set; }
+        public Nullable<int> EMSBagCheckId { get; set; }
+        public string Detail { get; set; }
     
-        public virtual EMSRole EMSRole { get; set; }
+        public virtual EMSBagCheck EMSBagCheck { get; set; }
     }
 }

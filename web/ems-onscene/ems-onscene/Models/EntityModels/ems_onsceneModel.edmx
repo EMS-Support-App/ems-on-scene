@@ -66,6 +66,21 @@
           </Key>
           <Property Name="ContentType" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="EMSBagCheck">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BagCheckTitle" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EMSBagCheckDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EMSBagCheckId" Type="int" />
+          <Property Name="Detail" Type="nvarchar(max)" />
+        </EntityType>
         <EntityType Name="EMSContent">
           <Key>
             <PropertyRef Name="id" />
@@ -99,6 +114,12 @@
           <Property Name="LogoImageUrl" Type="nvarchar(max)" />
           <Property Name="HomepageImageUrl" Type="nvarchar(max)" />
         </EntityType>
+        <EntityType Name="EMSRole">
+          <Key>
+            <PropertyRef Name="MedicalRank" />
+          </Key>
+          <Property Name="MedicalRank" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="Personnel">
           <Key>
             <PropertyRef Name="id" />
@@ -109,6 +130,18 @@
           <Property Name="Rank" Type="nvarchar" MaxLength="50" />
           <Property Name="PhoneNumber" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <Association Name="FK_AspNetUsers_EMSRole">
+          <End Role="EMSRole" Type="Self.EMSRole" Multiplicity="0..1" />
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EMSRole">
+              <PropertyRef Name="MedicalRank" />
+            </Principal>
+            <Dependent Role="AspNetUsers">
+              <PropertyRef Name="MedicalRank" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -162,6 +195,18 @@
             </Principal>
             <Dependent Role="AspNetUserRoles">
               <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EMSBagCheckDetail_EMSBagCheck">
+          <End Role="EMSBagCheck" Type="Self.EMSBagCheck" Multiplicity="0..1" />
+          <End Role="EMSBagCheckDetail" Type="Self.EMSBagCheckDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EMSBagCheck">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EMSBagCheckDetail">
+              <PropertyRef Name="EMSBagCheckId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -225,6 +270,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Personnel_EMSRole">
+          <End Role="EMSRole" Type="Self.EMSRole" Multiplicity="0..1" />
+          <End Role="Personnel" Type="Self.Personnel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EMSRole">
+              <PropertyRef Name="MedicalRank" />
+            </Principal>
+            <Dependent Role="Personnel">
+              <PropertyRef Name="Rank" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="ModelStoreContainer">
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
@@ -232,10 +289,17 @@
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ContentType" EntityType="Self.ContentType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EMSBagCheck" EntityType="Self.EMSBagCheck" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EMSBagCheckDetail" EntityType="Self.EMSBagCheckDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EMSContent" EntityType="Self.EMSContent" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EMSMessage" EntityType="Self.EMSMessage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EMSOrganization" EntityType="Self.EMSOrganization" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EMSRole" EntityType="Self.EMSRole" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Personnel" EntityType="Self.Personnel" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_AspNetUsers_EMSRole" Association="Self.FK_AspNetUsers_EMSRole">
+            <End Role="EMSRole" EntitySet="EMSRole" />
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
@@ -251,6 +315,10 @@
           <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EMSBagCheckDetail_EMSBagCheck" Association="Self.FK_EMSBagCheckDetail_EMSBagCheck">
+            <End Role="EMSBagCheck" EntitySet="EMSBagCheck" />
+            <End Role="EMSBagCheckDetail" EntitySet="EMSBagCheckDetail" />
           </AssociationSet>
           <AssociationSet Name="FK_EMSContent_AspNetUsers_registid" Association="Self.FK_EMSContent_AspNetUsers_registid">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -272,6 +340,10 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="EMSMessage" EntitySet="EMSMessage" />
           </AssociationSet>
+          <AssociationSet Name="FK_Personnel_EMSRole" Association="Self.FK_Personnel_EMSRole">
+            <End Role="EMSRole" EntitySet="EMSRole" />
+            <End Role="Personnel" EntitySet="Personnel" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -283,8 +355,12 @@
           <EntitySet Name="AspNetUserLogins" EntityType="Model.AspNetUserLogin" />
           <EntitySet Name="AspNetUsers" EntityType="Model.AspNetUser" />
           <EntitySet Name="ContentTypes" EntityType="Model.ContentType" />
+          <EntitySet Name="EMSBagChecks" EntityType="Model.EMSBagCheck" />
+          <EntitySet Name="EMSBagCheckDetails" EntityType="Model.EMSBagCheckDetail" />
           <EntitySet Name="EMSContents" EntityType="Model.EMSContent" />
           <EntitySet Name="EMSMessages" EntityType="Model.EMSMessage" />
+          <EntitySet Name="EMSOrganizations" EntityType="Model.EMSOrganization" />
+          <EntitySet Name="EMSRoles" EntityType="Model.EMSRole" />
           <EntitySet Name="Personnels" EntityType="Model.Personnel" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Model.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
@@ -293,6 +369,10 @@
           <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Model.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
             <End Role="AspNetUserLogin" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspNetUsers_EMSRole" Association="Model.FK_AspNetUsers_EMSRole">
+            <End Role="EMSRole" EntitySet="EMSRoles" />
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
           </AssociationSet>
           <AssociationSet Name="FK_EMSContent_AspNetUsers_registid" Association="Model.FK_EMSContent_AspNetUsers_registid">
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
@@ -314,11 +394,18 @@
             <End Role="ContentType" EntitySet="ContentTypes" />
             <End Role="EMSContent" EntitySet="EMSContents" />
           </AssociationSet>
+          <AssociationSet Name="FK_EMSBagCheckDetail_EMSBagCheck" Association="Model.FK_EMSBagCheckDetail_EMSBagCheck">
+            <End Role="EMSBagCheck" EntitySet="EMSBagChecks" />
+            <End Role="EMSBagCheckDetail" EntitySet="EMSBagCheckDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Personnel_EMSRole" Association="Model.FK_Personnel_EMSRole">
+            <End Role="EMSRole" EntitySet="EMSRoles" />
+            <End Role="Personnel" EntitySet="Personnels" />
+          </AssociationSet>
           <AssociationSet Name="AspNetUserRoles" Association="Model.AspNetUserRoles">
             <End Role="AspNetRole" EntitySet="AspNetRoles" />
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
           </AssociationSet>
-          <EntitySet Name="EMSOrganizations" EntityType="Model.EMSOrganization" />
         </EntityContainer>
         <EntityType Name="AspNetRole">
           <Key>
@@ -371,6 +458,7 @@
           <Property Name="CheckedInDT" Type="DateTime" Precision="3" />
           <NavigationProperty Name="AspNetUserClaims" Relationship="Model.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserClaim" />
           <NavigationProperty Name="AspNetUserLogins" Relationship="Model.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserLogin" />
+          <NavigationProperty Name="EMSRole" Relationship="Model.FK_AspNetUsers_EMSRole" FromRole="AspNetUser" ToRole="EMSRole" />
           <NavigationProperty Name="EMSContents" Relationship="Model.FK_EMSContent_AspNetUsers_registid" FromRole="AspNetUser" ToRole="EMSContent" />
           <NavigationProperty Name="EMSContents1" Relationship="Model.FK_EMSContent_AspNetUsers_updateid" FromRole="AspNetUser" ToRole="EMSContent" />
           <NavigationProperty Name="EMSMessages" Relationship="Model.FK_EMSMessage_EMSMessage_FROM" FromRole="AspNetUser" ToRole="EMSMessage" />
@@ -383,6 +471,23 @@
           </Key>
           <Property Name="ContentType1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="EMSContents" Relationship="Model.FK_EMSContent_ContentType" FromRole="ContentType" ToRole="EMSContent" />
+        </EntityType>
+        <EntityType Name="EMSBagCheck">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BagCheckTitle" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="EMSBagCheckDetails" Relationship="Model.FK_EMSBagCheckDetail_EMSBagCheck" FromRole="EMSBagCheck" ToRole="EMSBagCheckDetail" />
+        </EntityType>
+        <EntityType Name="EMSBagCheckDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EMSBagCheckId" Type="Int32" />
+          <Property Name="Detail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="EMSBagCheck" Relationship="Model.FK_EMSBagCheckDetail_EMSBagCheck" FromRole="EMSBagCheckDetail" ToRole="EMSBagCheck" />
         </EntityType>
         <EntityType Name="EMSContent">
           <Key>
@@ -413,6 +518,23 @@
           <NavigationProperty Name="AspNetUser" Relationship="Model.FK_EMSMessage_EMSMessage_FROM" FromRole="EMSMessage" ToRole="AspNetUser" />
           <NavigationProperty Name="AspNetUser1" Relationship="Model.FK_EMSMessage_EMSMessage_TO" FromRole="EMSMessage" ToRole="AspNetUser" />
         </EntityType>
+        <EntityType Name="EMSOrganization">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrganizationName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="LogoImageUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HomepageImageUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="EMSRole">
+          <Key>
+            <PropertyRef Name="MedicalRank" />
+          </Key>
+          <Property Name="MedicalRank" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Model.FK_AspNetUsers_EMSRole" FromRole="EMSRole" ToRole="AspNetUser" />
+          <NavigationProperty Name="Personnels" Relationship="Model.FK_Personnel_EMSRole" FromRole="EMSRole" ToRole="Personnel" />
+        </EntityType>
         <EntityType Name="Personnel">
           <Key>
             <PropertyRef Name="id" />
@@ -422,6 +544,7 @@
           <Property Name="Email" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="Rank" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="EMSRole" Relationship="Model.FK_Personnel_EMSRole" FromRole="Personnel" ToRole="EMSRole" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Type="Model.AspNetUser" Role="AspNetUser" Multiplicity="1">
@@ -448,6 +571,18 @@
             </Principal>
             <Dependent Role="AspNetUserLogin">
               <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspNetUsers_EMSRole">
+          <End Type="Model.EMSRole" Role="EMSRole" Multiplicity="0..1" />
+          <End Type="Model.AspNetUser" Role="AspNetUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EMSRole">
+              <PropertyRef Name="MedicalRank" />
+            </Principal>
+            <Dependent Role="AspNetUser">
+              <PropertyRef Name="MedicalRank" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -511,20 +646,35 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_EMSBagCheckDetail_EMSBagCheck">
+          <End Type="Model.EMSBagCheck" Role="EMSBagCheck" Multiplicity="0..1" />
+          <End Type="Model.EMSBagCheckDetail" Role="EMSBagCheckDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EMSBagCheck">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EMSBagCheckDetail">
+              <PropertyRef Name="EMSBagCheckId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Personnel_EMSRole">
+          <End Type="Model.EMSRole" Role="EMSRole" Multiplicity="0..1" />
+          <End Type="Model.Personnel" Role="Personnel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EMSRole">
+              <PropertyRef Name="MedicalRank" />
+            </Principal>
+            <Dependent Role="Personnel">
+              <PropertyRef Name="Rank" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="AspNetUserRoles">
           <End Type="Model.AspNetRole" Role="AspNetRole" Multiplicity="*" />
           <End Type="Model.AspNetUser" Role="AspNetUser" Multiplicity="*" />
         </Association>
-        <EntityType Name="EMSOrganization">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="OrganizationName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="LogoImageUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="HomepageImageUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-        </EntityType>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -586,6 +736,23 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="EMSBagChecks">
+            <EntityTypeMapping TypeName="Model.EMSBagCheck">
+              <MappingFragment StoreEntitySet="EMSBagCheck">
+                <ScalarProperty Name="BagCheckTitle" ColumnName="BagCheckTitle" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EMSBagCheckDetails">
+            <EntityTypeMapping TypeName="Model.EMSBagCheckDetail">
+              <MappingFragment StoreEntitySet="EMSBagCheckDetail">
+                <ScalarProperty Name="Detail" ColumnName="Detail" />
+                <ScalarProperty Name="EMSBagCheckId" ColumnName="EMSBagCheckId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="EMSContents">
             <EntityTypeMapping TypeName="Model.EMSContent">
               <MappingFragment StoreEntitySet="EMSContent">
@@ -612,6 +779,23 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="EMSOrganizations">
+            <EntityTypeMapping TypeName="Model.EMSOrganization">
+              <MappingFragment StoreEntitySet="EMSOrganization">
+                <ScalarProperty Name="HomepageImageUrl" ColumnName="HomepageImageUrl" />
+                <ScalarProperty Name="LogoImageUrl" ColumnName="LogoImageUrl" />
+                <ScalarProperty Name="OrganizationName" ColumnName="OrganizationName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EMSRoles">
+            <EntityTypeMapping TypeName="Model.EMSRole">
+              <MappingFragment StoreEntitySet="EMSRole">
+                <ScalarProperty Name="MedicalRank" ColumnName="MedicalRank" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Personnels">
             <EntityTypeMapping TypeName="Model.Personnel">
               <MappingFragment StoreEntitySet="Personnel">
@@ -631,16 +815,6 @@
               <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
-          <EntitySetMapping Name="EMSOrganizations">
-            <EntityTypeMapping TypeName="Model.EMSOrganization">
-              <MappingFragment StoreEntitySet="EMSOrganization">
-                <ScalarProperty Name="HomepageImageUrl" ColumnName="HomepageImageUrl" />
-                <ScalarProperty Name="LogoImageUrl" ColumnName="LogoImageUrl" />
-                <ScalarProperty Name="OrganizationName" ColumnName="OrganizationName" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -30,9 +30,12 @@ namespace ems_onscene.Models.EntityModels
         public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<ContentType> ContentTypes { get; set; }
+        public virtual DbSet<EMSBagCheck> EMSBagChecks { get; set; }
+        public virtual DbSet<EMSBagCheckDetail> EMSBagCheckDetails { get; set; }
         public virtual DbSet<EMSContent> EMSContents { get; set; }
         public virtual DbSet<EMSMessage> EMSMessages { get; set; }
-        public virtual DbSet<Personnel> Personnels { get; set; }
         public virtual DbSet<EMSOrganization> EMSOrganizations { get; set; }
+        public virtual DbSet<EMSRole> EMSRoles { get; set; }
+        public virtual DbSet<Personnel> Personnels { get; set; }
     }
 }

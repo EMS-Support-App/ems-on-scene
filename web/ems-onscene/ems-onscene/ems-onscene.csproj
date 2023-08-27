@@ -219,6 +219,8 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\BagCheckDetailsController.cs" />
+    <Compile Include="Controllers\BagCheckManagementController.cs" />
     <Compile Include="Controllers\ContentTypesController.cs" />
     <Compile Include="Controllers\EMSContentsController.cs" />
     <Compile Include="Controllers\EMSMessagesController.cs" />
@@ -227,6 +229,8 @@
     <Compile Include="Controllers\LocationLookupController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MeController.cs" />
+    <Compile Include="Controllers\MedicalRoleManagementsController.cs" />
+    <Compile Include="Controllers\OrganizationSettingsController.cs" />
     <Compile Include="Controllers\PersonnelsController.cs" />
     <Compile Include="Controllers\ShiftController.cs" />
     <Compile Include="Global.asax.cs">
@@ -248,6 +252,12 @@
     <Compile Include="Models\EntityModels\ContentType.cs">
       <DependentUpon>ems_onsceneModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\EntityModels\EMSBagCheck.cs">
+      <DependentUpon>ems_onsceneModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EntityModels\EMSBagCheckDetail.cs">
+      <DependentUpon>ems_onsceneModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\EntityModels\EMSContent.cs">
       <DependentUpon>ems_onsceneModel.tt</DependentUpon>
     </Compile>
@@ -255,6 +265,9 @@
       <DependentUpon>ems_onsceneModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EntityModels\EMSOrganization.cs">
+      <DependentUpon>ems_onsceneModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EntityModels\EMSRole.cs">
       <DependentUpon>ems_onsceneModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EntityModels\ems_onsceneModel.Context.cs">
@@ -433,6 +446,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="images\ACEMS-logo-2023-primary-blue.png" />
+    <Content Include="images\ems_sample_logo.jpg" />
+    <Content Include="images\ems_sample_logo.png" />
     <Content Include="images\loginbg.gif" />
     <Content Include="images\main_logo.png" />
     <Content Include="Models\EntityModels\ems_onsceneModel.Context.tt">
@@ -1750,6 +1765,26 @@
     <Content Include="Views\Shift\BagCheck.cshtml" />
     <Content Include="Views\Shift\CheckIn.cshtml" />
     <Content Include="Views\Shift\Index.cshtml" />
+    <Content Include="Views\OrganizationSettings\Create.cshtml" />
+    <Content Include="Views\OrganizationSettings\Delete.cshtml" />
+    <Content Include="Views\OrganizationSettings\Details.cshtml" />
+    <Content Include="Views\OrganizationSettings\Edit.cshtml" />
+    <Content Include="Views\OrganizationSettings\Index.cshtml" />
+    <Content Include="Views\MedicalRoleManagements\Create.cshtml" />
+    <Content Include="Views\MedicalRoleManagements\Delete.cshtml" />
+    <Content Include="Views\MedicalRoleManagements\Details.cshtml" />
+    <Content Include="Views\MedicalRoleManagements\Edit.cshtml" />
+    <Content Include="Views\MedicalRoleManagements\Index.cshtml" />
+    <Content Include="Views\BagCheckManagement\Create.cshtml" />
+    <Content Include="Views\BagCheckManagement\Delete.cshtml" />
+    <Content Include="Views\BagCheckManagement\Details.cshtml" />
+    <Content Include="Views\BagCheckManagement\Edit.cshtml" />
+    <Content Include="Views\BagCheckManagement\Index.cshtml" />
+    <Content Include="Views\BagCheckDetails\Create.cshtml" />
+    <Content Include="Views\BagCheckDetails\Delete.cshtml" />
+    <Content Include="Views\BagCheckDetails\Details.cshtml" />
+    <Content Include="Views\BagCheckDetails\Edit.cshtml" />
+    <Content Include="Views\BagCheckDetails\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
