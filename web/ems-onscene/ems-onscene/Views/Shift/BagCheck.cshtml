@@ -1,12 +1,12 @@
 ﻿@using ems_onscene.Models.EntityModels
 @using (emsonsceneEntities db = new emsonsceneEntities())
-        {
-            var bagchecks = db.EMSBagChecks.ToList();
-    <h2 style="padding-bottom:10px;">Bag Check</h2>
-    foreach(var bagcheck in bagchecks)
-                {
-                    <a href="/shift/bagcheckdetail/@bagcheck.Id" class="my_button">@bagcheck.BagCheckTitle</a>
-                }
+{
+    var bagchecks = db.EMSBagChecks.ToList();
+    <h1 class="amatic">@ViewBag.Title</h1>
+    foreach (var bagcheck in bagchecks)
+    {
+        <a href="/shift/bagcheckdetail/@bagcheck.Id" class="my_button">@bagcheck.BagCheckTitle</a>
+    }
 }
 
 
