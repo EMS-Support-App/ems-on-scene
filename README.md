@@ -5,11 +5,7 @@
 We are trying to make this app  more accessible for beginner developers, and are trying to create helpful tips and how-to guidelines.*
 
 ### What our Appp Looks Like:
-<img src="./screenshots/screenshot001.png" style="width:220px; margin-right:15px;">
-<img src="./screenshots/screenshot002.png" style="width:220px;">
-<img src="./screenshots/check-in-screenshot.png" style="width:220px;">
-<img src="./screenshots/check-in-screenshot2.png" style="width:220px;">
-<img src="./screenshots/bag-check-screenshot.png" style="width:220px;">
+<img src="./screenshots/screenshot001.png" style="width:220px; margin-right:15px;"><img src="./screenshots/screenshot002.png" style="width:220px; margin-right:15px;"><img src="./screenshots/check-in-screenshot.png" style="width:220px; margin-right:15px;"><img src="./screenshots/check-in-screenshot2.png" style="width:220px; margin-right:15px;"><img src="./screenshots/bag-check-screenshot.png" style="width:220px; margin-right:15px;">
 
 
 
