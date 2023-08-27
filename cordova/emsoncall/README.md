@@ -1,89 +1,42 @@
-# install cordova development enviroment
+# Setting Up Your Cordova Development Environment (+ try running the web app on the browser)
 
-1. Install "node JS"
+This guide will help beginners set up their development environment for running a Cordova app on the browser and Android devices.
 
-2. move to emsoncall folder under cordova.
+Make sure you have this project repo cloned in your work environment (we recommend Visual Studio) first!
 
-3. change mobile web URL to your mobile web URL in /cordova/emsoncall/www/js/index.js
+## Step 1: Install Node.js
 
+1.  Install [Node.js](https://nodejs.org/en/download) on your computer. Node.js is required for Cordova development.
+
+## Step 2: Prepare Your Cordova Project
+
+1.  Download or create your Cordova project folder.
+    
+2.  Open a command prompt terminal and navigate to your Cordova project folder:
+        
+    `cd path/to/your/cordova/project` 
+    
+
+## Step 3: Configure Your Cordova App
+
+1.  Open the `index.js` file located at `/cordova/emsoncall/www/js/index.js`.
+    
+2.  Locate the line that starts with `window.open` and change the URL within the parentheses to the URL of **your** mobile web application.
+        
+    `window.open('YOUR_MOBILE_WEB_URL_HERE', null, 'location=no');`
+    
+ (If you don't have a mobile web URL yet, follow our [instructions on how to deploy a new web application to a hosting server.](https://github.com/J-S-Lab/ems-on-scene/blob/main/web/ems-onscene/README.md) ) 
+
+## Step 4: Add Browser Platform
+
+1.  In your command prompt terminal, add the browser platform to your Cordova project:
+    
 ```
-document.addEventListener('deviceready', onDeviceReady, false);
-
-function onDeviceReady() {
-    document.getElementById('deviceready').classList.add('ready');
-    window.open = cordova.InAppBrowser.open;
-    window.open('https://ems.jandslab.com', null, 'location=no');
-}
+        cordova platform add browser
+        
+        cordova run browser
 ```
 
-3. cordova platform add browser
+Now you should see your Cordova app running on your browser. 
 
-```
-cordova platform add browser
-cordova run browser
-```
-
-4. Download JDK. Make sure to save the path/location of where you're downloading the JDK (we'll have to use this path later).
-
-5. in your computer, open environment variables edit page. 
-```
-rundll32.exe sysdm.cpl,EditEnvironmentVariables
-```
-
-ref) on the apache.cordova.org>createyourfirstapp>developforplatforms>android page that you were at, scroll down to "setting environment variables" section.
-
-6. set some important environment variables to be able to run cordova on android.
-
-in the environment variables edit panel, add JAVA_HOME as "system variable" under the path/location of where we downloaded the JDK (you should've saved this path earlier. if not, try installing JDK again to see at what path/location you downloaded JDK).
-
-add ANDROID_SDK_ROOT as system variable, path and should be found this way: open android studio > click tools tab > sdk manager > android sdk location. (if you don't have android studio, install that first).
-
-add ANDROID_HOME as system variable at the same path as above.
-
-6. now we're going to set some important PATH variables.
-
-in android studio > sdk manager, open the sdk tools tab. click on the android sdk command line tools and click "apply" to download that. once that's done, go to environment variables, system variables, double click on Path (must be unsder system variables and not user variables), and click "New" to update the Path variable to include the following directories:
-
-cmdline-tools/latest/bin
-emulator
-platform-tools
-build-tools
-
-these directories should be in the android sdk folder (see your file explorer, and go to the path/location where you downloaded your sdk).
-
-in the file explorer android sdk folder, click on the folders in there to find each of the directories listed above, copy each of their paths, and paste the directory paths as "New" path variables.
-
-7. download Gradle, and set the path/location as another new path environement variable.
-
-go to the download gradle link.
-for windows users, download manually.
-make a new directory C:\Gradle with File Explorer.
-open a second file explorer window and drag the unzipped gradle-8.2.1 folder into your newly created C:\Gradle folder.
-
-configure your path environment variable to include the "bin" dircotry of the unzipped distribution. for example:
-C:\gradle\gradle-8.2.1-bin\gradle8.2.1.\bin
-
-8. ONe more thing!! You need the 33.0.2 Android build tool in order to buil android.
-
-in android studio > sdk manager, open the sdk tools tab. click show package details option on the bottom right. select Android SDK Build TOols 33.0.2. Click Apply to download.
-
-NOWW you can build!
-
-close your cmd panel, and reopen it. 
-add the android platform: 
-$ cordova platform add android
-
-Now, try $cordova requirements
-to see if all requirements are met. if not, download and set variables and do what you gotta do until all requirements are met.
-
-After double checking that you meet all requirements, build!
-$ cordova build android
-if errors occur, read error messages and fix problems until you can build successfully.
-
-9. Now go find your android phone. change your android phone in to developer mode, 
-plug in your android phone to your pc, 
-on your android phone, allow pc to access your phone.
-change phone setting so it doesn't go to sleep.
-
-10. $ cordova run android
-see the app run on your phone!!!
+Congratulations- you've successfully set up your Cordova development environment and run your app on the browser!
