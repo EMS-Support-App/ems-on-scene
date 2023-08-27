@@ -21,3 +21,8 @@ We are trying to make this app  more accessible for beginner developers, and are
  - [ ] Push Notification for in-app Messages
  - [ ] Real-Time Location Sharing for People Checked In on Shift
  - [ ] Digitalizing the Run Report
+
+### Screenshots
+
+### Contributing
+Contributions are welcome! Whether you've found a bug, want to add a new feature, or just have a suggestion, feel free to open an issue or pull request.
