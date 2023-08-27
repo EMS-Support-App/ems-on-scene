@@ -24,9 +24,9 @@ We are trying to make this app  more accessible for beginner developers, and are
 
 ### Screenshots
 
-![Home screen](./screenshots/screenshot001.png)
+![Home screen](./screenshots/screenshot001.png =350x)
 
-![Side menu screen](./screenshots/screenshot002.png)
+![Side menu screen](./screenshots/screenshot002.png =350x)
 
 ### Contributing
 Contributions are welcome! Whether you've found a bug, want to add a new feature, or just have a suggestion, feel free to open an issue or pull request.
