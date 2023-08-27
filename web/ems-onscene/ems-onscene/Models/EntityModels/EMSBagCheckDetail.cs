@@ -14,16 +14,10 @@ namespace ems_onscene.Models.EntityModels
     
     public partial class EMSBagCheckDetail
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public EMSBagCheckDetail()
-        {
-            this.EMSBagChecks = new HashSet<EMSBagCheck>();
-        }
-    
         public int Id { get; set; }
         public Nullable<int> EMSBagCheckId { get; set; }
+        public string Detail { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<EMSBagCheck> EMSBagChecks { get; set; }
+        public virtual EMSBagCheck EMSBagCheck { get; set; }
     }
 }
