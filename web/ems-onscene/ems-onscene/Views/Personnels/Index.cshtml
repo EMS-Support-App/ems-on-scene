@@ -21,18 +21,16 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th style="width:70%;"><div class="th-content">Name</div></th>
-                        <th><div class="th-content">Rank</div></th>
-                        <th><div class="th-content">Contacts</div></th>
+                        <th style="width:65%;"><div class="th-content" style="">Name</div></th>
+                        <th><div class="th-content" style="padding-right:10px;">Rank</div></th>
                     </tr>
                 </thead>
                 @foreach (var item in Model)
                 {
                     <tbody>
                         <tr>
-                            <td style="width:70%;"><div class="td-content customer-name"><img src="/assets/img/default-profile-pic.jpg" alt="avatar">@item.Name</div></td>
-                            <td><div class="td-content product-brand">@item.Rank</div></td>
-                            <td><div class="td-content"><a href="/Personnels/Details/@item.id"><u>details</u></a></div></td>
+                            <td style="width:65%;"><div class="td-content customer-name" style=""><img src="/assets/img/default-profile-pic.jpg" alt="avatar"><a href="/Personnels/Details/@item.id">@item.Name</a></div></td>
+                            <td><div class="td-content" style="padding-right:10px;">@item.Rank</div></td>
                         </tr>
                     </tbody>
 
@@ -42,24 +40,8 @@
     </div>
 </div>
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Rank)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PhoneNumber)
-        </th>
-        <th></th>
-    </tr>
-
-    @*@foreach (var item in Model) {
+@*<table class="table">
+    @foreach (var item in Model) {
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Name)
@@ -79,6 +61,5 @@
                     @Html.ActionLink("Delete", "Delete", new { id=item.id })
                 </td>
             </tr>
-        }*@
-
-</table>
+        }
+</table>*@

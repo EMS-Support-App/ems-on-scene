@@ -1,33 +1,39 @@
 ﻿@model ems_onscene.Models.EntityModels.EMSMessage
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Message Details";
 }
 
-<h2>Details</h2>
+<h1 class="amatic">@ViewBag.Title</h1>
 
 <div>
-    <h4>EMSMessage</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.MessageTitle)
+            Message Title: <a style="color:lightslategray;"> @Html.DisplayFor(model => model.MessageTitle)</a>
+        </dt>
+
+        <dt>
+            The Message:
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.MessageTitle)
+            <div class="statbox widget box box-shadow">
+                <div class="widget-content widget-content-area">
+                 
+                    <div class="content" style="color:#808080">
+
+                        @Html.Raw(Model.MessageText)
+
+                    </div>
+                </div>
+            </div>
+
+            <hr size="1" style="border-style:double;border-color:black;" />
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.MessageText)
-        </dt>
-
-        <dd>
-            @Html.Raw(Model.MessageText)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.MessageTimeSent)
+            Time Sent:
         </dt>
 
         <dd>
@@ -35,7 +41,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.AspNetUser.MemberName)
+            From:
         </dt>
 
         <dd>
@@ -43,7 +49,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.AspNetUser1.MemberName)
+            To:
         </dt>
 
         <dd>
@@ -53,6 +59,6 @@
     </dl>
 </div>
 <p>
-    
+
     @Html.ActionLink("Back to List", "Index")
 </p>

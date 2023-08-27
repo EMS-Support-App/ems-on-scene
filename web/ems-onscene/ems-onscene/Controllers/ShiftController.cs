@@ -11,14 +11,26 @@ namespace acemsoncall.web.Controllers
     [Authorize]
     public class ShiftController : Controller
     {
+        emsonsceneEntities db = new emsonsceneEntities();
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+        public ActionResult bagcheckdetail(int id, int? detailid)
+        {
+            EMSBagCheck bagcheck;
+            bagcheck = db.EMSBagChecks.FirstOrDefault(c => c.Id == id);
+            return View(bagcheck);
+        }
         // GET: Shift
         public ActionResult Index()
         {
             List<AspNetUser> checkedinPersons = new List<AspNetUser>();
-            using (emsonsceneEntities db = new emsonsceneEntities())
-            {
-                checkedinPersons = db.AspNetUsers.Where(u=>u.IsCheckedIn == true).ToList();
-            }
+            checkedinPersons = db.AspNetUsers.Where(u => u.IsCheckedIn == true).ToList();
             return View(checkedinPersons);
         }
         [HttpGet]
@@ -29,26 +41,23 @@ namespace acemsoncall.web.Controllers
         [HttpPost]
         public ActionResult CheckIn(string MedicalRank, bool? IsCheckedIn)
         {
-            using(emsonsceneEntities db = new emsonsceneEntities())
+            string _userId = User.Identity.GetUserId();
+            var user = db.AspNetUsers.FirstOrDefault(u => u.Id == _userId);
+            if (user != null)
             {
-                string _userId = User.Identity.GetUserId();
-                var user = db.AspNetUsers.FirstOrDefault(u=>u.Id == _userId);
-                if (user != null)
+                var sameRankUsers = db.AspNetUsers.Where(u => u.MedicalRank == MedicalRank && u.IsCheckedIn == true).ToList();
+                foreach (var sameUser in sameRankUsers)
                 {
-                    var sameRankUsers = db.AspNetUsers.Where(u=>u.MedicalRank == MedicalRank && u.IsCheckedIn == true).ToList();
-                    foreach(var sameUser in sameRankUsers)
-                    {
-                        sameUser.IsCheckedIn = false;
-                    }
-                    user.MedicalRank = MedicalRank;
-                    user.IsCheckedIn = IsCheckedIn.HasValue?IsCheckedIn.Value:false;
-                    if (IsCheckedIn.HasValue && IsCheckedIn.Value == true)
-                    {
-                        user.CheckedInDT = DateTime.Now;
-                    }
-                    db.SaveChanges();
-                    ViewBag.Message = $"Successfully checked {(IsCheckedIn.HasValue&&IsCheckedIn.Value?"in":"out")}.";
+                    sameUser.IsCheckedIn = false;
                 }
+                user.MedicalRank = MedicalRank;
+                user.IsCheckedIn = IsCheckedIn.HasValue ? IsCheckedIn.Value : false;
+                if (IsCheckedIn.HasValue && IsCheckedIn.Value == true)
+                {
+                    user.CheckedInDT = DateTime.Now;
+                }
+                db.SaveChanges();
+                ViewBag.Message = $"Successfully checked {(IsCheckedIn.HasValue && IsCheckedIn.Value ? "in" : "out")}.";
             }
             return View();
         }
