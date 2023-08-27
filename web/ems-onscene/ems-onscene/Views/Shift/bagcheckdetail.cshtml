@@ -1,0 +1,36 @@
+﻿@using ems_onscene.Models.EntityModels
+@model EMSBagCheck
+@using (emsonsceneEntities db = new emsonsceneEntities())
+{
+    int _detailid = 0;
+    int? detailid = int.TryParse(Request["detailid"], out _detailid) ? (int?)_detailid : null;
+    if (Model != null)
+    {
+        <form action="?">
+            <input type="hidden" name="id" value="@Model.Id" />
+            @{
+                EMSBagCheckDetail bagcheckDetail = detailid == null ? Model.EMSBagCheckDetails.OrderBy(d => d.Id).FirstOrDefault() : Model.EMSBagCheckDetails.FirstOrDefault(d => d.Id == detailid);
+                <h3>@Model.BagCheckTitle</h3>
+                <div class="bagcheck-detail" style="margin-top:20px;margin-bottom:20px;">@Html.Raw(bagcheckDetail.Detail)</div>
+                <div class="text-center">
+                    <input type="checkbox" id="detailcheck" required />
+                    <label for="detailcheck">Checked</label>
+                </div>
+                <div class="text-center">
+                    @{
+                        var next = Model.EMSBagCheckDetails.Where(d => d.Id > bagcheckDetail.Id).OrderBy(d => d.Id).FirstOrDefault();
+                    }
+                    @if (next != null)
+                    {
+                        <input type="hidden" name="detailid" value="@next.Id" />
+                        <button class="btn btn-primary">Confirm</button>
+                    }
+                    else
+                    {
+                        <a href="/" class="btn btn-primary ">Complete!</a>
+                    }
+                </div>
+            }
+        </form>
+    }
+}  

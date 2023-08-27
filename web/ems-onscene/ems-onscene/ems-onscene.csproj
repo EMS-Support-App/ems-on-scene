@@ -1785,6 +1785,7 @@
     <Content Include="Views\BagCheckDetails\Details.cshtml" />
     <Content Include="Views\BagCheckDetails\Edit.cshtml" />
     <Content Include="Views\BagCheckDetails\Index.cshtml" />
+    <Content Include="Views\Shift\bagcheckdetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

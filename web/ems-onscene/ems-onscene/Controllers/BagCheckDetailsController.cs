@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
@@ -48,6 +49,7 @@ namespace ems_onscene.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [ValidateInput(false)]
         public ActionResult Create([Bind(Include = "Id,EMSBagCheckId,Detail")] EMSBagCheckDetail eMSBagCheckDetail)
         {
             if (ModelState.IsValid)
@@ -82,6 +84,7 @@ namespace ems_onscene.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [ValidateInput(false)]
         public ActionResult Edit([Bind(Include = "Id,EMSBagCheckId,Detail")] EMSBagCheckDetail eMSBagCheckDetail)
         {
             if (ModelState.IsValid)

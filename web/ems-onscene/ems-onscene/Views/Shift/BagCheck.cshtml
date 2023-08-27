@@ -1,11 +1,13 @@
-﻿@{
-    ViewBag.Title = "BagCheck";
+﻿@using ems_onscene.Models.EntityModels
+@using (emsonsceneEntities db = new emsonsceneEntities())
+        {
+            var bagchecks = db.EMSBagChecks.ToList();
+    <h2 style="padding-bottom:10px;">Bag Check</h2>
+    foreach(var bagcheck in bagchecks)
+                {
+                    <a href="/shift/bagcheckdetail/@bagcheck.Id" class="my_button">@bagcheck.BagCheckTitle</a>
+                }
 }
-
-<h2 style="padding-bottom:10px;">Bag Check</h2>
-<a href="https://forms.gle/Evs1oaK9s3AadrMw8" class="my_button med10button"><center><b>Med-10 Bag Check</b></center></a>
-<a href="https://forms.gle/ePZ4c1MgxzgrPRut7" class="my_button med12button"><center><b>Med-12 Bag Check</b></center></a>
-<a href="#" class="my_button med13button"><center><b>Med-13 Bag Check</b></center></a>
 
 
 
