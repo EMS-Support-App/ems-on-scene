@@ -71,7 +71,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="BagCheckTitle" Type="int" Nullable="false" />
+          <Property Name="BagCheckTitle" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="EMSBagCheckDetail">
           <Key>
@@ -477,7 +477,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="BagCheckTitle" Type="Int32" Nullable="false" />
+          <Property Name="BagCheckTitle" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="EMSBagCheckDetails" Relationship="Model.FK_EMSBagCheckDetail_EMSBagCheck" FromRole="EMSBagCheck" ToRole="EMSBagCheckDetail" />
         </EntityType>
         <EntityType Name="EMSBagCheckDetail">

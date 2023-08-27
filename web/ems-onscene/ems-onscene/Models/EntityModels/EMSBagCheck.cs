@@ -21,7 +21,7 @@ namespace ems_onscene.Models.EntityModels
         }
     
         public int Id { get; set; }
-        public int BagCheckTitle { get; set; }
+        public string BagCheckTitle { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EMSBagCheckDetail> EMSBagCheckDetails { get; set; }

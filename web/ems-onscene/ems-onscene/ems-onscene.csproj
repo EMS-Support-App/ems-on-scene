@@ -219,6 +219,8 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\BagCheckDetailsController.cs" />
+    <Compile Include="Controllers\BagCheckManagementController.cs" />
     <Compile Include="Controllers\ContentTypesController.cs" />
     <Compile Include="Controllers\EMSContentsController.cs" />
     <Compile Include="Controllers\EMSMessagesController.cs" />
@@ -1773,6 +1775,16 @@
     <Content Include="Views\MedicalRoleManagements\Details.cshtml" />
     <Content Include="Views\MedicalRoleManagements\Edit.cshtml" />
     <Content Include="Views\MedicalRoleManagements\Index.cshtml" />
+    <Content Include="Views\BagCheckManagement\Create.cshtml" />
+    <Content Include="Views\BagCheckManagement\Delete.cshtml" />
+    <Content Include="Views\BagCheckManagement\Details.cshtml" />
+    <Content Include="Views\BagCheckManagement\Edit.cshtml" />
+    <Content Include="Views\BagCheckManagement\Index.cshtml" />
+    <Content Include="Views\BagCheckDetails\Create.cshtml" />
+    <Content Include="Views\BagCheckDetails\Delete.cshtml" />
+    <Content Include="Views\BagCheckDetails\Details.cshtml" />
+    <Content Include="Views\BagCheckDetails\Edit.cshtml" />
+    <Content Include="Views\BagCheckDetails\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
