@@ -227,6 +227,7 @@
     <Compile Include="Controllers\LocationLookupController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MeController.cs" />
+    <Compile Include="Controllers\OrganizationSettingsController.cs" />
     <Compile Include="Controllers\PersonnelsController.cs" />
     <Compile Include="Controllers\ShiftController.cs" />
     <Compile Include="Global.asax.cs">
@@ -433,6 +434,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="images\ACEMS-logo-2023-primary-blue.png" />
+    <Content Include="images\ems_sample_logo.jpg" />
+    <Content Include="images\ems_sample_logo.png" />
     <Content Include="images\loginbg.gif" />
     <Content Include="images\main_logo.png" />
     <Content Include="Models\EntityModels\ems_onsceneModel.Context.tt">
@@ -1750,6 +1753,11 @@
     <Content Include="Views\Shift\BagCheck.cshtml" />
     <Content Include="Views\Shift\CheckIn.cshtml" />
     <Content Include="Views\Shift\Index.cshtml" />
+    <Content Include="Views\OrganizationSettings\Create.cshtml" />
+    <Content Include="Views\OrganizationSettings\Delete.cshtml" />
+    <Content Include="Views\OrganizationSettings\Details.cshtml" />
+    <Content Include="Views\OrganizationSettings\Edit.cshtml" />
+    <Content Include="Views\OrganizationSettings\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
