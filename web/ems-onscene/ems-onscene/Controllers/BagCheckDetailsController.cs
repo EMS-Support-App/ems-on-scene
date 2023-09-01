@@ -38,9 +38,9 @@ namespace ems_onscene.Controllers
         }
 
         // GET: BagCheckDetails/Create
-        public ActionResult Create()
+        public ActionResult Create(string Id)
         {
-            ViewBag.EMSBagCheckId = new SelectList(db.EMSBagChecks, "Id", "BagCheckTitle");
+            ViewBag.EMSBagCheckId = new SelectList(db.EMSBagChecks, "Id", "BagCheckTitle", Id);
             return View();
         }
 
@@ -56,7 +56,7 @@ namespace ems_onscene.Controllers
             {
                 db.EMSBagCheckDetails.Add(eMSBagCheckDetail);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("details", "bagcheckmanagement", new { id = eMSBagCheckDetail.EMSBagCheckId });
             }
 
             ViewBag.EMSBagCheckId = new SelectList(db.EMSBagChecks, "Id", "BagCheckTitle", eMSBagCheckDetail.EMSBagCheckId);
@@ -91,7 +91,7 @@ namespace ems_onscene.Controllers
             {
                 db.Entry(eMSBagCheckDetail).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "bagcheckmanagement", new { id = eMSBagCheckDetail.EMSBagCheckId });
             }
             ViewBag.EMSBagCheckId = new SelectList(db.EMSBagChecks, "Id", "BagCheckTitle", eMSBagCheckDetail.EMSBagCheckId);
             return View(eMSBagCheckDetail);
@@ -118,9 +118,10 @@ namespace ems_onscene.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             EMSBagCheckDetail eMSBagCheckDetail = db.EMSBagCheckDetails.Find(id);
+            int? bagCheckId = eMSBagCheckDetail.EMSBagCheckId;
             db.EMSBagCheckDetails.Remove(eMSBagCheckDetail);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("details", "bagcheckmanagement", new { id =bagCheckId });
         }
 
         protected override void Dispose(bool disposing)
