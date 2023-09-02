@@ -10,6 +10,7 @@ using ems_onscene.Models.EntityModels;
 
 namespace ems_onscene.Controllers
 {
+    [Authorize(Roles ="admin")]
     public class BagCheckManagementController : Controller
     {
         private emsonsceneEntities db = new emsonsceneEntities();
@@ -84,7 +85,7 @@ namespace ems_onscene.Controllers
             {
                 db.Entry(eMSBagCheck).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", new { id = eMSBagCheck.Id});
             }
             return View(eMSBagCheck);
         }
@@ -110,8 +111,15 @@ namespace ems_onscene.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             EMSBagCheck eMSBagCheck = db.EMSBagChecks.Find(id);
-            db.EMSBagChecks.Remove(eMSBagCheck);
-            db.SaveChanges();
+            try
+            {
+                db.EMSBagChecks.Remove(eMSBagCheck);
+                db.SaveChanges();
+            }
+            catch {
+                ViewBag.Error = "To delete, first delete all child items.";
+                return View("Delete", db.EMSBagChecks.Find(id));
+            }
             return RedirectToAction("Index");
         }
 

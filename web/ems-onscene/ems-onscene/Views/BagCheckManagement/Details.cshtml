@@ -3,24 +3,12 @@
 @{
     ViewBag.Title = "Details";
 }
-
-<h2>Details</h2>
-
 <div>
-    <h4>EMSBagCheck</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.BagCheckTitle)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.BagCheckTitle)
-        </dd>
-
-    </dl>
+    <p class="float-end">
+        @Html.ActionLink("Change Title", "Edit", new { id = Model.Id }, new { @class = "btn btn-default" })
+        @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default" })
+    </p>
+    <h2>@Html.DisplayFor(model => model.BagCheckTitle)</h2>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<hr class="clearfix" />
+@Html.Partial("/views/bagcheckdetails/index.cshtml", Model.EMSBagCheckDetails, new ViewDataDictionary() { new KeyValuePair<string, object>("id", Model.Id) } )
