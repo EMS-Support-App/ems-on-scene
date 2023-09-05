@@ -1,0 +1,17 @@
+﻿@using stylemelodyfashion.com.models.ViewModels
+@model SearchUserId
+@Html.Partial("_inputwithgridsearch", new ViewDataDictionary() {
+    { "fieldname", Model.FieldName }
+    , { "displayfieldname", "UserID"}
+    , { "fieldnametopick", "UserID" }
+    , { "displayfieldnametopick", "UserID" }
+    , { "value", Model.InitialValue }
+    , { "displayvalue", Model.InitialDisplayValue }
+    , { "searchfields", "UserID,Name,Descript" }
+    , { "searchfieldnames", "User ID,Name,Dept" }
+    , { "odatasourceurl", "/odata/Users?$select=UserID,Name,Descript&$filter=InActive ne true" }
+    , { "gridcolumns", "[{\"field\":\"UserID\", \"title\":\"User ID\"}, {\"field\":\"Name\", \"title\":\"Name\"}, {\"field\":\"Descript\", \"title\":\"Dept\"} ]" }
+    , {"pagesize", "6" }
+    , { "required", "required" }
+    , { "positioncontrol", "fixed" }
+})

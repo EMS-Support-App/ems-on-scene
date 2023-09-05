@@ -1,0 +1,8 @@
+﻿@{
+    Layout = null;
+    ViewBag.Title = "Deleted";
+}
+<h2>@(string.IsNullOrWhiteSpace(Request["msg"]) ? "Successfully Deleted." : Request["msg"])</h2>
+<script>
+    @(Request["javascriptcommand"])();
+</script>

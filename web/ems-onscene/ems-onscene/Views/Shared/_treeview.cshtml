@@ -1,0 +1,71 @@
+﻿@using PVT.ERP.Model
+@using PVT.ERP.Model.Modules
+@model TreeDataSetMeta
+@{
+    string controluniqueid = System.Guid.NewGuid().ToString().ReplaceAllSpecialChars();
+    string fieldname = ViewData["fieldname"] as string;
+    string displayfieldname = ViewData["displayfieldname"] as string;
+    string required = ViewData["required"] as string;
+
+    string IDColumnName = Model.IDColumnName;
+    string ParentIDColumnName = Model.ParentIDColumnName;
+    string TitleColumnName = Model.TitleColumnName;
+    string TableName = Model.TableName;
+
+    string GroupID = Model.TableName != "SKUGroup" ? "1" : "SKUGroupID";
+    string GroupValue = ViewData["thisid"] == null ? "0" : ViewData["thisid"].ToString().ReplaceAllSpecialChars();
+
+    <div id="treeviewpickerwrapper@(controluniqueid)">
+        <div class="input-group">
+            <input type="text" class="form-control" id="displayparentname@(controluniqueid)" onclick="javascript: showlayer('treeviewpicker@(controluniqueid)');" value="@ViewData["displayvalue"]" @(required==null?string.Empty:"required=required") onfocus="javascript:blur();" />
+            <span class="input-group-addon"><span class="glyphicon glyphicon-folder-open" onclick="javascript: showlayer('treeviewpicker@(controluniqueid)');" style="cursor:pointer;"></span></span>
+            <span class="input-group-addon"><span class="glyphicon glyphicon-remove" onclick="javascript: $('#displayparentname@(controluniqueid)').val('');$('#@(fieldname)').val('');" style="cursor:pointer;"></span></span>
+        </div>
+
+        <input type="hidden" id="@(fieldname)" name="@(fieldname)" class="form-control" value="@ViewData["value"]" />
+        <div id="treeviewpicker@(controluniqueid)" style="margin:10px 20px 20px 20px; padding:10px; width:600px; border:3px solid gray;position:absolute;background-color:white;z-index:1100;display:none;">
+            <div>
+                <span class="glyphicon glyphicon-remove-circle" style="float:right;cursor:pointer;" onclick="javascript: closelayer('treeviewpicker@(controluniqueid)');"></span>
+            </div>
+            @using (PVTERPEntities db = new PVTERPEntities())
+            {
+                List<TreeDataSet>
+                    treeData = db.Database.SqlQuery<TreeDataSet>
+                        ("select convert(nvarchar(50), " + IDColumnName + ") as id, convert(nvarchar(50), " + ParentIDColumnName + ") as parentid, " + TitleColumnName + " as title from " + TableName + " where (" + ParentIDColumnName + " is null or  " + ParentIDColumnName + " = 0) and isdeleted=0 and " + GroupID + " != " + GroupValue + " ").ToList();
+                <ul class="kendotreeview">
+                    @ListElements(treeData, db, IDColumnName, ParentIDColumnName, TitleColumnName, TableName, controluniqueid)
+                </ul>
+            }
+        </div>
+    </div>
+}
+<script>
+    var selectnode@(controluniqueid) = function (id, title) {
+        $('#@(fieldname)').val(id);
+        $('#displayparentname@(controluniqueid)').val(title);
+        closelayer('treeviewpicker@(controluniqueid)');
+    }
+    $("#treeviewpickerwrapper@(controluniqueid)").bind("clickoutside", function (event) {
+        closelayer('treeviewpicker@(controluniqueid)');
+    });
+</script>
+@helper ListElements(List<TreeDataSet> _treeData, PVTERPEntities db, string IDColumnName, string ParentIDColumnName, string TitleColumnName, string TableName, string controluniqueid)
+{
+for (int i = 0; i < _treeData.Count; i++)
+{
+        <li>
+            <span onclick="javascript:selectnode@(controluniqueid)('@(_treeData[i].id)', '@(_treeData[i].title)');">@_treeData[i].title</span>
+            @{
+                List<TreeDataSet> treeData = db.Database.SqlQuery<TreeDataSet>("select convert(nvarchar(50), " + IDColumnName + ") as id, convert(nvarchar(50), " + ParentIDColumnName + ") as parentid, " + TitleColumnName + " as title from " + TableName + " where (" + ParentIDColumnName + " = " + _treeData[i].id + ") and isdeleted=0 ").ToList();
+            }
+            @if (treeData.Count > 0)
+            {
+                <ul>
+                    @ListElements(treeData, db, IDColumnName, ParentIDColumnName, TitleColumnName, TableName, controluniqueid)
+                </ul>
+
+            }
+
+        </li>
+                }
+}

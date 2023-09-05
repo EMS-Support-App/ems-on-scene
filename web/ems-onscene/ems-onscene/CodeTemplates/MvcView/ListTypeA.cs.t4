@@ -1,0 +1,186 @@
+﻿<#@ template language="C#" HostSpecific="True" Debug="True" #>
+<#@ output extension=".cshtml" #>
+<#@ include file="Imports.include.t4" #>
+@model IEnumerable<#= "<" + ViewDataTypeName + ">" #>
+@using james.utils
+<#
+// The following chained if-statement outputs the file header code and markup for a partial view, a view using a layout page, or a regular view.
+if(IsPartialView) {
+#>
+
+<#
+} else if(IsLayoutPageSelected) {
+#>
+
+@{
+    string pageuniqueid = Guid.NewGuid().ToString().RemoveAllNoAlphabetAndDigit();
+	string _controllerName = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLower();
+    ViewBag.Title = _controllerName;
+<#
+if (!String.IsNullOrEmpty(LayoutPageFile)) {
+#>
+    Layout = "<#= LayoutPageFile#>";
+<#
+}
+#>
+}
+
+<h2>@ViewBag.Title</h2>
+
+<#
+} else {
+#>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+<#
+    PushIndent("    ");
+}
+    int _cnt = 0;
+	string pkName = GetPrimaryKeyName();
+    IEnumerable<RelatedModelMetadata> relatedModels = ModelMetadata.RelatedEntities;
+	IEnumerable<PropertyMetadata> properties = ModelMetadata.Properties;
+	string _selectFieldNames = string.Empty;
+#>
+@*
+<div class="defaultsearchconditions@(_controllerName)grid@(pageuniqueid)" data-logic="and">
+    <div class="condition" data-field="{field name}" data-operator="{operator}" data-type="{data type}" data-value="{value}"></div>
+</div>
+*@
+<div id="@(_controllerName)listwrapper@(pageuniqueid)">
+<div class="form-inline searchpanel@(_controllerName)grid@(pageuniqueid)">
+    <div class="form-group">
+        <label>Search by</label>
+        <select name="@(_controllerName)searchfield" id="@(_controllerName)searchfield@(pageuniqueid)" class="form-control searchfield@(_controllerName)grid@(pageuniqueid)">
+<#
+foreach (PropertyMetadata property in properties) {
+    if (property.Scaffold && !property.IsPrimaryKey && !property.IsForeignKey) {
+#>
+<#
+        if (!property.TypeName.Equals("System.String") || (property.IsAssociation && GetRelatedModelMetadata(property) == null)) {
+            continue;
+        }
+#>
+            <option value="<#= GetValueExpression(property) #>" <#=GetValueExpression(property).ToLower().IndexOf("name")>=0?"selected=\"selected\"":string.Empty#>><#= InsertSpaceCamelCase(GetValueExpression(property)) #></option>
+
+<#
+    }
+}
+#>
+        </select>
+        <input type="text" name="@(_controllerName)searchword" id="@(_controllerName)searchword@(pageuniqueid)" class="form-control searchword@(_controllerName)grid@(pageuniqueid)" />
+        <button type="button" onclick="javascript:search@(_controllerName)@(pageuniqueid)();" class="form-control"><span class="glyphicon glyphicon-search"></span> Search</button>
+        <button type="button" onclick="javascript:addnew@(_controllerName)@(pageuniqueid)();" class="form-control securityrequired"><span class="glyphicon glyphicon-plus"></span> Add New <#= InsertSpaceCamelCase(ModelMetadata.EntitySetName) #></button>
+    </div>
+</div>
+<div>&nbsp;</div>
+<div id="">
+    <div>
+        <div id="@(_controllerName)grid@(pageuniqueid)" class="kendogridauto" data-kendo-grid-pagesize="50" data-kendo-grid-height="auto"
+            data-kendo-grid-columns='[<#
+    _cnt=0;
+foreach (PropertyMetadata property in properties) {
+    if (property.Scaffold && !property.IsForeignKey) {
+            if (((property.IsAssociation && GetRelatedModelMetadata(property) == null)) || property.IsForeignKey || property.TypeName=="System.Byte[]") {
+            continue;
+        }
+		_selectFieldNames += ((_cnt==0?string.Empty:",") + GetValueExpression(property).Replace(".", "/"));
+#><#= _cnt==0?"":"\r\n\t\t\t\t, " #>{"field":"<#= GetValueExpression(property) #>", "title":"<#= InsertSpaceCamelCase(GetValueExpression(property)) #>", "width":"100px"<#
+	RelatedModelMetadata propertyModel = GetRelatedModelMetadata(property);
+	if (propertyModel != null) {
+		#>, "template":"#=(typeof <#=propertyModel.AssociationPropertyName#> === \"undefined\")?\"\":<#=propertyModel.AssociationPropertyName#>.<#=propertyModel.DisplayPropertyName#>#"<#
+	}
+	else if (property.TypeName=="System.DateTime") {
+		#>, "template":"#=(typeof <#=GetValueExpression(property)#> === \"undefined\")?\"\":DateTimeFormatString(<#=GetValueExpression(property)#>, \"MM/dd/yyyy\")#"<#
+	}
+
+#>}<#
+            _cnt++;
+    }
+}
+#>]' 
+ data-kendo-datasource-url="/odata/<#= ModelMetadata.EntitySetName #>?$select=<#=_selectFieldNames#>&$expand=<#
+    _cnt = 0;
+    foreach (RelatedModelMetadata relatedModel in relatedModels) {
+        #><#= _cnt==0?"":"," #><#= relatedModel.AssociationPropertyName #><#
+        _cnt++;
+    }
+
+ #>"
+            data-kendo-grid-click="@(_controllerName)gridselectionchange@(pageuniqueid)" data-kendo-grid-sort='{"field":"<#= pkName #>", "dir":"desc"}'></div>
+    </div>
+</div>
+</div>
+<div id="@(_controllerName)tabstripwrapper@(pageuniqueid)" class="wrapper tabstripwrapperA">
+    <div>
+        <div class="pull-right tabstripbuttons">
+            <input type="button" value="Close" class="btn btn-default" onclick="javascript: hideTabStrip@(_controllerName)@(pageuniqueid)();" />
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    
+    <div id="@(_controllerName)tabstrip@(pageuniqueid)" class="kendotabstripauto" style="display:none;">
+        <ul>
+            <li class="k-state-active" data-tabcontenturl="/home/empty">Basic Info</li>
+        </ul>
+    </div>
+</div>
+<script>
+    var @(_controllerName)gridselectionchange@(pageuniqueid) = function (e) {
+		scrollToTop();
+        var selectedItem = getSelectedItem('@(_controllerName)grid@(pageuniqueid)');
+        if (selectedItem !== null) {
+		    $('#@(_controllerName)listwrapper@(pageuniqueid)').hide();
+		    $('#@(_controllerName)tabstripwrapper@(pageuniqueid)').show();
+            setKendoTabs('@(_controllerName)tabstrip@(pageuniqueid)', ['/@(_controllerName)/edit/' + selectedItem.<#= pkName #> + '?pageid=@(pageuniqueid)']);
+            $('#@(_controllerName)grid@(pageuniqueid)').data('kendoGrid').clearSelection();
+        }
+    };
+    var search@(_controllerName)@(pageuniqueid) = function () {
+        applyFilterKendoGrid('@(_controllerName)grid@(pageuniqueid)', $('#@(_controllerName)searchfield@(pageuniqueid)').val(), $('#@(_controllerName)searchword@(pageuniqueid)').val());
+    }
+    var addnew@(_controllerName)@(pageuniqueid) = function () {
+        $('#@(_controllerName)listwrapper@(pageuniqueid)').hide();
+        $('#@(_controllerName)tabstripwrapper@(pageuniqueid)').show();
+        setKendoTabs('@(_controllerName)tabstrip@(pageuniqueid)', ['/@(_controllerName)/create/?pageid=@(pageuniqueid)']);
+    };
+
+    var reload@(_controllerName)grid@(pageuniqueid) = function () {
+        reloadKendoGrid('@(_controllerName)grid@(pageuniqueid)');
+		hideTabStrip@(_controllerName)@(pageuniqueid)();
+    };
+	var overridedReadyEventProcedure = function () {
+		$('#@(_controllerName)searchword@(pageuniqueid)').focus();
+        $("#@(_controllerName)grid@(pageuniqueid) .k-grid-content").css({
+            "overflow-y": "visible"
+        });
+	};
+    var hideTabStrip@(_controllerName)@(pageuniqueid) = function () {
+        scrollToTop();
+        $('#@(_controllerName)tabstripwrapper@(pageuniqueid)').hide();
+        $('#@(_controllerName)listwrapper@(pageuniqueid)').show();
+    };
+</script>
+<style>
+    #@(_controllerName)grid@(pageuniqueid) .k-grid-header {
+        padding: 0 !important;
+    }
+
+    #@(_controllerName)grid@(pageuniqueid) .k-grid-content {
+        overflow: visible;
+        overflow-x: auto;
+        overflow-y: visible;
+        height:initial !important;
+    }
+</style>
+<#@ include file="ModelMetadataFunctions.cs.include.t4" #>
