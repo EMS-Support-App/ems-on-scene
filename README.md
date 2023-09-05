@@ -36,11 +36,14 @@ By following these steps, you'll transform this app into a powerful tool that al
 * [“How to deploy web application to hosting server”](https://github.com/J-S-Lab/ems-on-scene/blob/main/web/ems-onscene/README.md)
 
 ### Some App Updates & Additional Features the Developers are Cooking Up:
- - [ ] Bag Checker Feature Update
+ - [ ] Change organization settings: "Organization Name" to "App name", add an "Organization Name" feature, and add a feature to change banner image.
+ - [ ] Add a delete message feature
  - [ ] Check Shift Schedule Feature
+ - [ ] Make App-wide Search Bar (able to search location, information, and personnel)
+ - [ ] Location and Information Pages -> pagination
  - [ ] Push Notification for in-app Messages
  - [ ] Real-Time Location Sharing for People Checked In on Shift
  - [ ] Digitalizing the Run Report
-
+ - [ ] Manage Contents Page -> pagination and filter-by-type feature
 ### Contributing
 Contributions are welcome! Whether you've found a bug, want to add a new feature, or just have a suggestion, feel free to open an issue or pull request.

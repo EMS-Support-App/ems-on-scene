@@ -1,4 +1,7 @@
 ﻿@using ems_onscene.Models.EntityModels
+@{ 
+    ViewBag.Title = "Bag Check Forms";
+}
 @using (emsonsceneEntities db = new emsonsceneEntities())
 {
     var bagchecks = db.EMSBagChecks.ToList();

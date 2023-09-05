@@ -1,44 +1,43 @@
 ﻿@model ems_onscene.Models.EntityModels.Personnel
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Personnel Detail";
 }
 
-<h2>Details</h2>
+<h1 class="amatic">@ViewBag.Title</h1>
 
 <div>
-    <h4>Personnel</h4>
-    <hr />
+
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Name)
+            Name:
         </dt>
 
-        <dd>
+        <dd style="margin-bottom:20px;">
             @Html.DisplayFor(model => model.Name)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Email)
+            Email:
         </dt>
 
-        <dd>
+        <dd style="margin-bottom:20px;">
             @Html.DisplayFor(model => model.Email)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Rank)
+            Medical Rank
         </dt>
 
-        <dd>
+        <dd style="margin-bottom:20px;">
             @Html.DisplayFor(model => model.Rank)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.PhoneNumber)
+            Phone Number
         </dt>
 
-        <dd>
+        <dd style="margin-bottom:20px;">
             @Html.DisplayFor(model => model.PhoneNumber)
         </dd>
 
