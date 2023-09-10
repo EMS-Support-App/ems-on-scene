@@ -34,7 +34,15 @@ namespace ems_onscene
             ODataConventionModelBuilder builder = new ODataConventionModelBuilder();
             builder.EntitySet<EMSOrganization>("EMSOrganizations");
             builder.EntitySet<Personnel>("Personnels");
+            builder.EntitySet<AspNetUser>("AspNetUsers");
+            builder.EntitySet<AspNetUserClaim>("AspNetUserClaims");
+            builder.EntitySet<AspNetUserLogin>("AspNetUserLogins");
             builder.EntitySet<EMSRole>("EMSRoles");
+            builder.EntitySet<EMSContent>("EMSContents");
+            builder.EntitySet<EMSMessage>("EMSMessages");
+            builder.EntitySet<AspNetRole>("AspNetRoles");
+            builder.EntitySet<ContentType>("ContentTypes");
+
             config.Routes.MapODataServiceRoute("odata", "odata", builder.GetEdmModel());
         }
     }
