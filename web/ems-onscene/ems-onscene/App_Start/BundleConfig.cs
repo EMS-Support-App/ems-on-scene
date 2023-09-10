@@ -34,12 +34,15 @@ namespace ems_onscene
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                 "~/Scripts/modernizr-*"));
 
-            bundles.Add(new Bundle("~/bundles/bootstrap").Include(
-                "~/Scripts/bootstrap.js", "~/scripts/site.js"));
+            bundles.Add(new Bundle("~/bundles/bootstrap").Include("~/Scripts/bootstrap.js", "~/Scripts/vue@3.3.4_dist_vue.global.js", "~/scripts/kendo.all.min.js", "~/scripts/site.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                  "~/Content/bootstrap.css",
-                 "~/Content/Site.css","~/content/emsonscene.css"));
+                 "~/styles/kendo.common-bootstrap.min.css",
+                 "~/styles/kendo.bootstrap.min.css",
+                 "~/styles/kendo.bootstrap.mobile.min.css",
+                 "~/Content/Site.css",
+                 "~/content/emsonscene.css"));
         }
     }
 }

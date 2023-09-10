@@ -1,0 +1,35 @@
+﻿@{ 
+    string _controlID = ViewData["ControlID"] as string;
+}
+<div style="display:none;position:absolute;" id="@(_controlID)">
+    <input type="text" class="jquerydatepickerauto" onchange="javascript: @(_controlID).afterchanging(this)" />
+</div>
+<script>
+    var datepickerforspreadsheet = function () {
+        this.setcelltoobject = function (cell) {
+            var $datepicker = $('#@(_controlID) .jquerydatepickerauto');
+            $datepicker.focusout(function () { closelayer('@(_controlID)'); });
+            $datepicker[0].cell = cell;
+            $datepicker.datepicker('setDate', $(cell).text());
+            $datepicker.focus();
+        };
+        this.afterchanging = function (that) {
+            $(that.cell).text($(that).val());
+            if (that.cell.row !== null) {
+                //that.cell.row.viewmodel[that.cell.row.cells[that.cell.columnidx].field] = $(that).val();
+                var targets = { target: that.cell };
+                that.cell.row.$row.parent().parent().parent()[0].validatevalue(targets);
+                that.cell.row.$row.parent().parent().parent()[0]._movenextcell(that.cell);
+
+                //// Original
+                ////that.cell.row.viewmodel[that.cell.row.cells[that.cell.columnidx].field] = $(that).val();
+                //that.cell.row.$row.parent().parent().parent()[0]._movenextcell(that.cell);
+                //var targets = { target: that.cell };
+                //that.cell.row.$row.parent().parent().parent()[0].validatevalue(targets);
+            }
+            $(that).val('');
+            closelayer('@(_controlID)');
+        }
+    };
+    var @(_controlID) = new datepickerforspreadsheet();
+</script>

@@ -1,0 +1,39 @@
+﻿@using james.utils
+@{
+    string _uid = Guid.NewGuid().ToString().RemoveAllNoAlphabetAndDigit();
+    string _type = ViewData["Type"] as string;
+    string _required = ViewData["required"] as string;
+}
+@if (_type == null)
+{
+<div class="input-group" id="@_uid">
+    <input type="text" name="@ViewData["Name"]" id="@ViewData["ID"]" value="@ViewData["Value"]" class="@ViewData["Class"]" style="cursor:pointer;max-width:100%;" onmouseout="$('#uploadedimage@(_uid)').hide();" onmouseover="$('#uploadedimage@(_uid)').show();"  @(_required==null?string.Empty:"required=required") />
+    <span class="input-group-addon securityclick inputfilebutton" onclick="javascript:clickfileinput@(_uid)();" style="cursor:pointer;">
+        <span>Browse...</span>
+    </span>
+    <span class="input-group-addon securityclick inputfilebutton" style="cursor:pointer;"><span class="glyphicon glyphicon-remove" onclick="javascript: $('#@(ViewData["ID"])').val('');" style="cursor:pointer;"></span></span>
+</div>
+<img src="@ViewData["Value"]" style="display:none;position:absolute;z-index:1000;max-width:500px;" id="uploadedimage@(_uid)" class="img-thumbnail" />
+}
+else if (_type == "pdf")
+{
+    <div class="input-group" id="@_uid">
+        <input type="text" name="@ViewData["Name"]" id="@ViewData["ID"]" value="@ViewData["Value"]" class="@(ViewData["Class"])" style="cursor:pointer;color:blue;text-decoration:underline;max-width:100%;pointer-events:initial;" onclick="javascript: var _href = $(this).val(); if (!isNullOrWhitespace(_href)) {window.open($(this).val());}"   @(_required==null?string.Empty:"required=required") />
+        <span class="input-group-addon securityclick inputfilebutton" onclick="javascript:clickfileinput@(_uid)();" style="cursor:pointer;">
+            <span >Browse...</span>
+        </span>
+        <span class="input-group-addon securityclick inputfilebutton" style="cursor:pointer;"><span class="glyphicon glyphicon-remove" onclick="javascript: $('#@(ViewData["ID"])').val('');" style="cursor:pointer;"></span></span>
+    </div>
+}
+<iframe src="/home/uploader?uid=@(_uid)" id="uploadiframe@(_uid)" style="display:none;"></iframe>
+<script>
+    var clickfileinput@(_uid) = function () {
+        $($($('#uploadiframe@(_uid)').contents()).find('#wrapperid')).val('@(_uid)');
+        $($($('#uploadiframe@(_uid)').contents()).find('#parentinputboxid')).val('@ViewData["ID"]');
+        var _fileuploader = $($($('#uploadiframe@(_uid)').contents()).find('#fileuploader'));
+        _fileuploader.click();
+    }
+    var changeimage@(_uid) = function () {
+        $('#uploadedimage@(_uid)').attr('src', $('#@ViewData["ID"]').val());
+    }
+</script>

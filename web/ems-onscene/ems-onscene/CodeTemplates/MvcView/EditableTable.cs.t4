@@ -1,0 +1,102 @@
+﻿<#@ template language="C#" HostSpecific="True" #>
+<#@ output extension=".cshtml" #>
+<#@ include file="Imports.include.t4" #>
+@model IEnumerable<#= "<" + ViewDataTypeName + ">" #>
+@using james.utils
+<#
+// The following chained if-statement outputs the file header code and markup for a partial view, a view using a layout page, or a regular view.
+if(IsPartialView) {
+#>
+
+<#
+} else if(IsLayoutPageSelected) {
+#>
+
+@{
+    string pageuniqueid = Guid.NewGuid().ToString().RemoveAllNoAlphabetAndDigit();
+	string _controllerName = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLower();
+    ViewBag.Title = "<#= ModelMetadata.EntitySetName #>";
+<#
+if (!String.IsNullOrEmpty(LayoutPageFile)) {
+#>
+    Layout = "<#= LayoutPageFile#>";
+<#
+}
+#>
+}
+
+<h2>@ViewBag.Title</h2>
+
+<#
+} else {
+#>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+<#
+    PushIndent("    ");
+}
+#>
+
+<div id="">
+    <div>
+        <div id="@(_controllerName)Spreadsheet@(pageuniqueid)" class="mnbspreadsheet" data-kendo-datasource-url="/odata/<#= ModelMetadata.EntitySetName #><#
+    int _cnt = 0;
+	string pkName = GetPrimaryKeyName();
+    IEnumerable<RelatedModelMetadata> relatedModels = ModelMetadata.RelatedEntities;
+	IEnumerable<PropertyMetadata> properties = ModelMetadata.Properties;
+    foreach (RelatedModelMetadata relatedModel in relatedModels) {
+        #><#= _cnt==0?"?$expand=":"," #><#= relatedModel.AssociationPropertyName #><#
+        _cnt++;
+    }
+
+ #>"
+            data-kendo-grid-columns='[<#
+    _cnt=0;
+foreach (PropertyMetadata property in properties) {
+    if (property.Scaffold && !property.IsForeignKey) {
+            if (((property.IsAssociation && GetRelatedModelMetadata(property) == null)) || property.IsForeignKey) {
+            continue;
+        }
+#><#=_cnt==0?"":"," #>
+                {"field":"<#= GetValueExpression(property) #>", "title":"<#= GetValueExpression(property) #>", "width":"100px"}<#
+            _cnt++;
+    }
+}
+#>
+
+			]' 
+             data-auto-addnew="true" data-kendo-grid-datasource-schema-model-id="<#= GetPrimaryKeyName() #>"></div>
+    </div>
+</div>
+@*
+    data-mnbspreadsheet-auto-reload: default value is true
+    data-mnbspreadsheet-beforeaddnew
+    data-mnbspreadsheet-beforeupdate
+    data-mnbspreadsheet-remove-button
+    data-mnbspreadsheet-add-button
+    data-mnbspreadsheet-setdisablecolumn
+    data-mnbspreadsheet-auto-addnew: default value is false
+    data-kendo-dropdown-datasource
+    data-kendo-datasource-transport-parametermap
+*@
+<div>
+    <button class="btn btn-primary securityrequired" type="button" onclick="javascript: $('#@(_controllerName)Spreadsheet@(pageuniqueid)')[0].addrow();"><span class="glyphicon glyphicon-plus"></span> Add a row</button>
+    <button class="btn btn-primary" type="button" onclick="javascript: $('#@(_controllerName)Spreadsheet@(pageuniqueid)')[0].reload();"><span class="glyphicon glyphicon-refresh"></span> Reload</button>
+    <button class="btn btn-primary securityrequired" type="button" onclick="javascript: $('#@(_controllerName)Spreadsheet@(pageuniqueid)')[0].savelastnewrow();"><span class="glyphicon glyphicon-floppy-save"></span> Save</button>
+</div>
+
+@section scripts {
+
+}
+<#@ include file="ModelMetadataFunctions.cs.include.t4" #>
