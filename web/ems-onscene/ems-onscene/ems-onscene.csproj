@@ -250,6 +250,8 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MeController.cs" />
     <Compile Include="Controllers\MedicalRoleManagementsController.cs" />
+    <Compile Include="Controllers\OData\AspNetUsersController.cs" />
+    <Compile Include="Controllers\OData\ContentTypesController.cs" />
     <Compile Include="Controllers\OData\EMSOrganizationsController.cs" />
     <Compile Include="Controllers\OData\PersonnelsController.cs" />
     <Compile Include="Controllers\OrganizationSettingsController.cs" />
