@@ -12,5 +12,13 @@ namespace ems_onscene.Controllers
         {
             return View();
         }
+        public ActionResult Empty()
+        {
+            return new EmptyResult();
+        }
+        public ActionResult Deleted()
+        {
+            return View();
+        }
     }
 }

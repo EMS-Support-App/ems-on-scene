@@ -3,36 +3,19 @@
 @{
     ViewBag.Title = "Index";
 }
-
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
+<p class="text-right">
+    @Html.ActionLink("Add New Check List", "Create", "bagcheckdetails", new { id = ViewData["id"]}, new { @class = "btn btn-sm btn-primary" })
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Detail)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EMSBagCheck.BagCheckTitle)
-        </th>
-        <th></th>
-    </tr>
-
+<hr class="clearfix" />
 @foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Detail)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EMSBagCheck.BagCheckTitle)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
+    <div class="">
+        <div class="float-end">
+            @Html.ActionLink("Edit", "Edit", "bagcheckdetails", new { id = item.Id }, new {@class="btn btn-sm btn-default"})
+            @Html.ActionLink("Delete", "Delete", "bagcheckdetails", new { id = item.Id }, new { @class = "btn btn-sm btn-danger" })
+        </div>
+        <div class="bagcheck-detail" style="margin-top:20px;margin-bottom:20px;">
+            @Html.Raw(item.Detail)
+        </div>
+    </div>
+    <hr class="clearfix" />
 }
-
-</table>

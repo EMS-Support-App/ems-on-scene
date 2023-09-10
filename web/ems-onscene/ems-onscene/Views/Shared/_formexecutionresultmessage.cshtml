@@ -1,0 +1,20 @@
+﻿<div class="formmessagewrapper">
+    @if (!string.IsNullOrWhiteSpace(ViewBag.SuccessMsg))
+    {
+        <div style="color:blue;">@ViewBag.SuccessMsg @DateTime.Now</div>
+        <script>
+                @(ViewBag.JavascriptCommand)();
+        </script>
+    }
+    @if (!string.IsNullOrWhiteSpace(ViewBag.ErrorMsg))
+    {
+        string msg = ViewBag.ErrorMsg;
+        msg = msg.Trim();
+        <script>
+            @*alert("@(msg)");*@
+            AlertMessage("@(msg)");
+            @*popupWindow('AlertPopUP', '/PopupLayout/Alert?message=' + "@(ViewBag.ErrorMsg)" + '', 'MessageBox', '500px');*@
+        </script>
+        @*<div class="hiswarningtext">@(Html.Raw((ViewBag.ErrorMsg as string).Replace("\n\r", "<br />\n\r"))) @DateTime.Now</div>*@
+    }
+</div>

@@ -1,0 +1,151 @@
+﻿@using james.utils
+@{
+    string controluniqueid = Guid.NewGuid().ToString().RemoveAllNoAlphabetAndDigit();
+    string fieldname = ViewData["fieldname"] as string;
+    string displayfieldname = ViewData["displayfieldname"] as string;
+    string fieldnametopick = ViewData["fieldnametopick"] as string;
+    string displayfieldnametopick = ViewData["displayfieldnametopick"] as string;
+
+    string[] searchfields = (ViewData["searchfields"] as string).Split(',');
+    string[] searchfieldnames = (ViewData["searchfieldnames"] as string).Split(',');
+
+    string[] defaultFilterFields = ViewData["defaultfilterfields"]==null?null:(ViewData["defaultfilterfields"] as string).Split(',');
+    string[] defaultFilterOperators = ViewData["defaultfilteroperators"]==null?null:(ViewData["defaultfilteroperators"] as string).Split(',');
+    string[] defaultFilterDataTypes = ViewData["defaultfilterdatatypes"]==null?null:(ViewData["defaultfilterdatatypes"] as string).Split(',');
+    string[] defaultFilterValues = ViewData["defaultfiltervalues"]==null?null:(ViewData["defaultfiltervalues"] as string).Split(',');
+
+    string odatasourceurl = ViewData["odatasourceurl"] as string;
+    string gridcolumns = ViewData["gridcolumns"] as string;
+    string pagesize = ViewData["pagesize"] as string;
+    string popwidth = ViewData["popwidth"] as string;
+    string positioncontrol = ViewData["positioncontrol"] as string;
+    string searchwordwidth = ViewData["searchwordwidth"] as string;
+    string margincontrol = ViewData["margincontrol"] as string;
+
+    string required = ViewData["required"] as string;
+    string additionalJavascriptAction = ViewData["additionaljavascriptaction"] as string;
+    string popupid = ViewData["popupid"] as string;
+    popupid = string.IsNullOrWhiteSpace(popupid) ? "" : popupid;
+    string sort = ViewData["sort"] as string;
+    string sortdirection = ViewData["sortdirection"] as string;
+    sortdirection = string.IsNullOrWhiteSpace(sortdirection) ? "asc" : sortdirection;
+    string showhidebutton = ViewData["showhidebutton"] as string;
+    bool bshowhidebutton = string.IsNullOrWhiteSpace(showhidebutton) ? false : (showhidebutton == "true" ? true : false);
+    string _noDeleteButton = ViewData["nodeletebutton"] as string;
+    bool boolNoDeleteButton = string.IsNullOrWhiteSpace(_noDeleteButton) ? false : _noDeleteButton == "true";
+    pagesize = string.IsNullOrWhiteSpace(pagesize) ? "10" : pagesize;
+    popwidth = string.IsNullOrWhiteSpace(popwidth) ? "670" : popwidth;
+    positioncontrol = string.IsNullOrWhiteSpace(positioncontrol) ? "absolute" : positioncontrol;
+    searchwordwidth = string.IsNullOrWhiteSpace(searchwordwidth) ? "auto" : searchwordwidth;
+    margincontrol = string.IsNullOrWhiteSpace(margincontrol) ? "20px 20px 20px 20px" : margincontrol;
+
+    string callsearchfunction = ViewData["callsearchfunction"] as string;
+    string callmultisearchfunction = ViewData["callmultisearchfunction"] as string;
+}
+@if (defaultFilterFields != null && defaultFilterFields.Length > 0)
+{
+    <div class="defaultsearchconditionsgrid@(controluniqueid)" data-logic="and">
+        @for (int i = 0; i < defaultFilterFields.Length; i++)
+        {
+            <div class="condition" data-field="@defaultFilterFields[i]" data-operator="@defaultFilterOperators[i]" data-type="@defaultFilterDataTypes[i]"
+                 data-value="@defaultFilterValues[i]"></div>
+        }
+
+    </div>
+}
+<div id="searchpanelwrapper@(controluniqueid)" class="PopupIDView@(popupid)">
+    <div class="input-group" id="searchinput@(controluniqueid)">
+        <input type="text" class="form-control securityclick PopupIDView@(popupid)" id="displayformname@(controluniqueid)" onclick="javascript: showlayer('searchpanel@(controluniqueid)');" value="@ViewData["displayvalue"]" @(required == null ? string.Empty : "required=required") onfocus="javascript:blur();" style="max-width:initial;" />
+        <span class="input-group-addon securityclick PopupIDView@(popupid)" onclick="javascript: showlayer('searchpanel@(controluniqueid)');" style="cursor:pointer;"><span class="glyphicon glyphicon-list-alt"></span></span>
+        @if (boolNoDeleteButton == false)
+        {
+            if (bshowhidebutton)
+            {
+                <span class="input-group-addon securityclick" onclick="javascript: $('#searchpanelwrapper@(controluniqueid)').parent().hide();" style="cursor:pointer;"><span class="glyphicon glyphicon-remove"></span></span>
+            }
+            else
+            {
+                <span class="input-group-addon securityclick" onclick="javascript: $('#displayformname@(controluniqueid)').val('');$('#@(fieldname)@(controluniqueid)').val('');" style="cursor:pointer;"><span class="glyphicon glyphicon-remove"></span></span>
+            }
+        }
+    </div>
+    <div id="searchpanel@(controluniqueid)" style="margin:@(margincontrol); padding:10px; width:@(popwidth)px; border:3px solid gray;position:@(positioncontrol);background-color:white;z-index:1100;display:none;@(positioncontrol=="fixed"?"top:150px;":string.Empty)">
+        <div class="form-inline">
+            <div>
+                <label>Search by</label>
+                <select name="searchfield@(controluniqueid)" id="searchfield@(controluniqueid)" class="form-control">
+                    @for (int i = 0; i < searchfields.Length; i++)
+                    {
+                        <option value="@searchfields[i]">@searchfieldnames[i]</option>
+                    }
+                </select>
+                <input type="text" name="searchword@(controluniqueid)" id="searchword@(controluniqueid)" class="form-control" style="width:@(searchwordwidth);" onkeydown="if (event.keyCode == 13) {search@(controluniqueid)(); return false;};" value="@ViewData["displayvalue"]" />
+                <button type="button" onclick="javascript:search@(controluniqueid)();" class="form-control">Search</button>
+            </div>
+        </div>
+        <div style="overflow:scroll;">
+            <div id="grid@(controluniqueid)" class="kendogridauto" data-kendo-datasource-url="@odatasourceurl" data-kendo-grid-pagesize="@pagesize" data-kendo-grid-columns="@gridcolumns" data-kendo-grid-doubleclick="selecttherow@(controluniqueid)" data-kendo-grid-toolbar='[]' data-kendo-grid-filterable='false' data-kendo-grid-height="250" @Html.Raw(string.IsNullOrWhiteSpace(sort) ? "" : ("data-kendo-grid-sort='{\"field\":\"" + sort + "\", \"dir\":\"" + sortdirection + "\"}'"))></div>
+        </div>
+    </div>
+
+    <input type="hidden" id="@(fieldname)@(controluniqueid)" name="@(fieldname)" class="form-control" value="@ViewData["value"]" @(required == null ? string.Empty : "required=required") />
+</div>
+<script>
+    var search@(controluniqueid) = function () {
+        applyFilterKendoGrid('grid@(controluniqueid)', $('#searchfield@(controluniqueid)').val(), $('#searchword@(controluniqueid)').val());
+    };
+    var selecttherow@(controluniqueid) = function () {
+        var selectedItem = getSelectedItem('grid@(controluniqueid)');
+        if (selectedItem !== null) {
+                    $('#@(fieldname)@(controluniqueid)').val(selectedItem.@(string.IsNullOrWhiteSpace(fieldnametopick)?fieldname: fieldnametopick));
+        @*console.log('selectedItem.@(string.IsNullOrWhiteSpace(fieldnametopick)?fieldname: fieldnametopick)');
+        console.log(selectedItem.@(string.IsNullOrWhiteSpace(fieldnametopick)?fieldname: fieldnametopick));
+        console.log($('#@(fieldname)@(controluniqueid)').val());*@
+        $('#displayformname@(controluniqueid)').val(selectedItem.@(string.IsNullOrWhiteSpace(displayfieldnametopick) ? displayfieldname : displayfieldnametopick));
+        @if (!string.IsNullOrWhiteSpace(additionalJavascriptAction))
+        {
+            @(additionalJavascriptAction + "(selectedItem);");
+        }
+        closelayer('searchpanel@(controluniqueid)');
+        }
+    };
+    setTimeout(function () {
+        $("#searchpanelwrapper@(controluniqueid)").bind( "clickoutside", function(event){
+            closelayer('searchpanel@(controluniqueid)');
+        });
+
+    }, 2000);
+    @if (!string.IsNullOrWhiteSpace(callsearchfunction))
+    {
+        <text>
+    var @(callsearchfunction) = function (searchfieldname, searchvalue, operator) {
+            var _defaultfilters = [];
+            _defaultfilters.push({ field: searchfieldname, operator: operator, value: searchvalue });
+            _applyFilterKendGrid('grid@(controluniqueid)', 'and', _defaultfilters);
+            $('#@(fieldname)@(controluniqueid)').val("");
+            $('#displayformname@(controluniqueid)').val("");
+        };
+        </text>
+    }
+    @if (!string.IsNullOrWhiteSpace(callmultisearchfunction))
+    {
+        <text>
+        var @(callmultisearchfunction) = function (searchfield) {
+            var _defaultfilters = [];
+            var $defaultsearchconditions = $('.' + searchfield + '>.condition');
+            $defaultsearchconditions.each(function () {
+                var $this = $(this);
+                var conditiontype = $this.data("type");
+                var conditionvalue = $('#' + $this.data("value") + '').val();
+                if (conditiontype == "int"){
+                    conditionvalue = parseInt(conditionvalue);
+                }
+                _defaultfilters.push({ field: $this.data("field"), operator: $this.data("operator"), value: conditionvalue });
+            })
+            _applyFilterKendGrid('grid@(controluniqueid)', 'and', _defaultfilters);
+            $('#@(fieldname)@(controluniqueid)').val("");
+            $('#displayformname@(controluniqueid)').val("");
+        };
+        </text>
+    }
+</script>
