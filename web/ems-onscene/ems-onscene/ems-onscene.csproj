@@ -256,6 +256,7 @@
     <Compile Include="Controllers\PersonnelManagementController.cs" />
     <Compile Include="Controllers\PersonnelsController.cs" />
     <Compile Include="Controllers\ShiftController.cs" />
+    <Compile Include="Controllers\WebMenuSettingsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -309,6 +310,9 @@
       <DependentUpon>ems_onsceneModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\EntityModels\Personnel.cs">
+      <DependentUpon>ems_onsceneModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EntityModels\WebMenuSetting.cs">
       <DependentUpon>ems_onsceneModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
@@ -1902,6 +1906,11 @@
     <Content Include="Views\PersonnelManagement\Edit.cshtml" />
     <Content Include="Views\PersonnelManagement\Index.cshtml" />
     <Content Include="Views\PersonnelManagement\_form.cshtml" />
+    <Content Include="Views\WebMenuSettings\Create.cshtml" />
+    <Content Include="Views\WebMenuSettings\Delete.cshtml" />
+    <Content Include="Views\WebMenuSettings\Details.cshtml" />
+    <Content Include="Views\WebMenuSettings\Edit.cshtml" />
+    <Content Include="Views\WebMenuSettings\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

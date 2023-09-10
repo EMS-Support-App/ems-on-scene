@@ -130,6 +130,16 @@
           <Property Name="Rank" Type="nvarchar" MaxLength="50" />
           <Property Name="PhoneNumber" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="WebMenuSetting">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ParentId" Type="int" />
+          <Property Name="MenuName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="URL" Type="nchar" MaxLength="10" />
+          <Property Name="Sorting" Type="int" />
+        </EntityType>
         <Association Name="FK_AspNetUsers_EMSRole">
           <End Role="EMSRole" Type="Self.EMSRole" Multiplicity="0..1" />
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="*" />
@@ -270,15 +280,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Personnel_EMSRole">
-          <End Role="EMSRole" Type="Self.EMSRole" Multiplicity="0..1" />
-          <End Role="Personnel" Type="Self.Personnel" Multiplicity="*" />
+        <Association Name="FK_WebMenuSetting_WebMenuSetting">
+          <End Role="WebMenuSetting" Type="Self.WebMenuSetting" Multiplicity="0..1" />
+          <End Role="WebMenuSetting1" Type="Self.WebMenuSetting" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="EMSRole">
-              <PropertyRef Name="MedicalRank" />
+            <Principal Role="WebMenuSetting">
+              <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Personnel">
-              <PropertyRef Name="Rank" />
+            <Dependent Role="WebMenuSetting1">
+              <PropertyRef Name="ParentId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -296,6 +306,7 @@
           <EntitySet Name="EMSOrganization" EntityType="Self.EMSOrganization" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EMSRole" EntityType="Self.EMSRole" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Personnel" EntityType="Self.Personnel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WebMenuSetting" EntityType="Self.WebMenuSetting" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_AspNetUsers_EMSRole" Association="Self.FK_AspNetUsers_EMSRole">
             <End Role="EMSRole" EntitySet="EMSRole" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -340,9 +351,9 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="EMSMessage" EntitySet="EMSMessage" />
           </AssociationSet>
-          <AssociationSet Name="FK_Personnel_EMSRole" Association="Self.FK_Personnel_EMSRole">
-            <End Role="EMSRole" EntitySet="EMSRole" />
-            <End Role="Personnel" EntitySet="Personnel" />
+          <AssociationSet Name="FK_WebMenuSetting_WebMenuSetting" Association="Self.FK_WebMenuSetting_WebMenuSetting">
+            <End Role="WebMenuSetting" EntitySet="WebMenuSetting" />
+            <End Role="WebMenuSetting1" EntitySet="WebMenuSetting" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -405,6 +416,11 @@
           <AssociationSet Name="AspNetUserRoles" Association="Model.AspNetUserRoles">
             <End Role="AspNetRole" EntitySet="AspNetRoles" />
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <EntitySet Name="WebMenuSettings" EntityType="Model.WebMenuSetting" />
+          <AssociationSet Name="FK_WebMenuSetting_WebMenuSetting" Association="Model.FK_WebMenuSetting_WebMenuSetting">
+            <End Role="WebMenuSetting" EntitySet="WebMenuSettings" />
+            <End Role="WebMenuSetting1" EntitySet="WebMenuSettings" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="AspNetRole">
@@ -674,6 +690,30 @@
           <End Type="Model.AspNetRole" Role="AspNetRole" Multiplicity="*" />
           <End Type="Model.AspNetUser" Role="AspNetUser" Multiplicity="*" />
         </Association>
+        <EntityType Name="WebMenuSetting">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ParentId" Type="Int32" />
+          <Property Name="MenuName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="URL" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Sorting" Type="Int32" />
+          <NavigationProperty Name="WebMenuSetting1" Relationship="Model.FK_WebMenuSetting_WebMenuSetting" FromRole="WebMenuSetting" ToRole="WebMenuSetting1" />
+          <NavigationProperty Name="WebMenuSetting2" Relationship="Model.FK_WebMenuSetting_WebMenuSetting" FromRole="WebMenuSetting1" ToRole="WebMenuSetting" />
+        </EntityType>
+        <Association Name="FK_WebMenuSetting_WebMenuSetting">
+          <End Type="Model.WebMenuSetting" Role="WebMenuSetting" Multiplicity="0..1" />
+          <End Type="Model.WebMenuSetting" Role="WebMenuSetting1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WebMenuSetting">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="WebMenuSetting1">
+              <PropertyRef Name="ParentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -815,6 +855,17 @@
               <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="WebMenuSettings">
+            <EntityTypeMapping TypeName="Model.WebMenuSetting">
+              <MappingFragment StoreEntitySet="WebMenuSetting">
+                <ScalarProperty Name="Sorting" ColumnName="Sorting" />
+                <ScalarProperty Name="URL" ColumnName="URL" />
+                <ScalarProperty Name="MenuName" ColumnName="MenuName" />
+                <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

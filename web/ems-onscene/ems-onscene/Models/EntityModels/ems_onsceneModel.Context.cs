@@ -37,5 +37,6 @@ namespace ems_onscene.Models.EntityModels
         public virtual DbSet<EMSOrganization> EMSOrganizations { get; set; }
         public virtual DbSet<EMSRole> EMSRoles { get; set; }
         public virtual DbSet<Personnel> Personnels { get; set; }
+        public virtual DbSet<WebMenuSetting> WebMenuSettings { get; set; }
     }
 }

@@ -28,6 +28,8 @@
         <AssociationConnector Association="Model.FK_EMSBagCheckDetail_EMSBagCheck" />
         <AssociationConnector Association="Model.FK_Personnel_EMSRole" />
         <AssociationConnector Association="Model.AspNetUserRoles" />
+        <EntityTypeShape EntityType="Model.WebMenuSetting" Width="1.5" PointX="9.125" PointY="7.5" />
+        <AssociationConnector Association="Model.FK_WebMenuSetting_WebMenuSetting" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

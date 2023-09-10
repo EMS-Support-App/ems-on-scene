@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\hanhe\Source\Repos\J-S-Lab\ems-onseene\web\ems-onscene\ems-onscene\Models\EntityModels\ems_onsceneModel.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\USER\source\repos\J-S-Lab\ems-on-scene\web\ems-onscene\ems-onscene\Models\EntityModels\ems_onsceneModel.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.
