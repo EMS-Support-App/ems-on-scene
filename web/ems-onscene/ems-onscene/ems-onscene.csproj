@@ -254,6 +254,7 @@
     <Compile Include="Controllers\OData\ContentTypesController.cs" />
     <Compile Include="Controllers\OData\EMSOrganizationsController.cs" />
     <Compile Include="Controllers\OData\PersonnelsController.cs" />
+    <Compile Include="Controllers\OData\WebMenuSettingsController.cs" />
     <Compile Include="Controllers\OrganizationSettingsController.cs" />
     <Compile Include="Controllers\PersonnelManagementController.cs" />
     <Compile Include="Controllers\PersonnelsController.cs" />
@@ -1913,6 +1914,7 @@
     <Content Include="Views\WebMenuSettings\Details.cshtml" />
     <Content Include="Views\WebMenuSettings\Edit.cshtml" />
     <Content Include="Views\WebMenuSettings\Index.cshtml" />
+    <Content Include="Views\WebMenuSettings\_form.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
