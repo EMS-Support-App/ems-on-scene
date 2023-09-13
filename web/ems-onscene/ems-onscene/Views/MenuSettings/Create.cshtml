@@ -1,0 +1,24 @@
+﻿@model ems_onscene.Models.EntityModels.WebMenuSetting
+
+@{
+	string _controllerName = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLower();
+    ViewBag.Title = "Create";
+	Layout = null;
+}
+
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { embededNavigation = true })) 
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal crudformwrapper">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+		@Html.Partial("_form")
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-primary" />
+				<input type="button" value="Close" class="btn btn-default" onclick="javascript: hideTabStrip@(_controllerName)@(Request["pageid"])();" />
+            </div>
+        </div>
+    </div>
+}
+

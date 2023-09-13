@@ -93,4 +93,6 @@ hr{
     background-color: #a2b1d5;
     color: #fff;
 }
-
+#sidebar a {
+    text-decoration:none;
+}

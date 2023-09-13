@@ -1,0 +1,84 @@
+﻿@model IEnumerable<ems_onscene.Models.EntityModels.WebMenuSetting>
+@using james.utils
+
+@{
+    string pageuniqueid = Guid.NewGuid().ToString().RemoveAllNoAlphabetAndDigit();
+	string _controllerName = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLower();
+    ViewBag.Title = _controllerName;
+}
+
+<h2>@ViewBag.Title</h2>
+
+@*
+<div class="defaultsearchconditions@(_controllerName)grid@(pageuniqueid)" data-logic="and">
+    <div class="condition" data-field="{field name}" data-operator="{operator}" data-type="{data type}" data-value="{value}"></div>
+</div>
+*@
+<div id="@(_controllerName)listwrapper@(pageuniqueid)">
+<div class="form-inline searchpanel@(_controllerName)grid@(pageuniqueid)">
+    <div class="form-group">
+        <label>Search by</label>
+        <select name="@(_controllerName)searchfield" id="@(_controllerName)searchfield@(pageuniqueid)" class="form-control searchfield@(_controllerName)grid@(pageuniqueid)">
+            <option value="MenuName" selected="selected">Menu Name</option>
+
+            <option value="URL" >U R L</option>
+
+            <option value="Icon" >Icon</option>
+
+        </select>
+        <input type="text" name="@(_controllerName)searchword" id="@(_controllerName)searchword@(pageuniqueid)" class="form-control searchword@(_controllerName)grid@(pageuniqueid)" />
+        <button type="button" onclick="javascript:search@(_controllerName)@(pageuniqueid)();" class="form-control"><span class="glyphicon glyphicon-search"></span> Search</button>
+        <button type="button" onclick="javascript:addnew@(_controllerName)@(pageuniqueid)();" class="form-control securityrequired"><span class="glyphicon glyphicon-plus"></span> Add New Web Menu Settings</button>
+    </div>
+</div>
+<div>&nbsp;</div>
+
+
+
+<div id="">
+    <div>
+        <div id="@(_controllerName)grid@(pageuniqueid)" class="kendogridauto" data-kendo-grid-pagesize="10"
+            data-kendo-grid-columns='[{"field":"Id", "title":"Id", "width":"100px"}
+				, {"field":"MenuName", "title":"Menu Name", "width":"100px"}
+				, {"field":"URL", "title":"U R L", "width":"100px"}
+				, {"field":"Sorting", "title":"Sorting", "width":"100px"}
+				, {"field":"WebMenuSetting2.MenuName", "title":"Parent Menu Name", "width":"100px", "template":"#=(typeof WebMenuSetting2 === \"undefined\")?\"\":WebMenuSetting2.MenuName#"}]' 
+ data-kendo-datasource-url="/odata/WebMenuSettings?$select=Id,MenuName,URL,Sorting,Icon,WebMenuSetting2/MenuName&$expand=WebMenuSetting2"
+            data-kendo-grid-change="@(_controllerName)gridselectionchange@(pageuniqueid)" data-kendo-grid-sort='{"field":"Id", "dir":"desc"}'></div>
+    </div>
+</div>
+</div>
+<div id="@(_controllerName)tabstripwrapper@(pageuniqueid)" class="wrapper">
+    <div id="@(_controllerName)tabstrip@(pageuniqueid)" class="kendotabstripauto" style="display:none;">
+        <ul>
+            <li class="k-state-active" data-tabcontenturl="/home/empty">Basic Info</li>
+        </ul>
+    </div>
+</div>
+<script>
+    var @(_controllerName)gridselectionchange@(pageuniqueid) = function (e) {
+        var selectedItem = getSelectedItem('@(_controllerName)grid@(pageuniqueid)');
+        if (selectedItem !== null) {
+			setKendoTabs('@(_controllerName)tabstrip@(pageuniqueid)', ['/@(_controllerName)/edit/' + selectedItem.Id + '?pageid=@(pageuniqueid)']);
+			$('#@(_controllerName)tabstripwrapper@(pageuniqueid)').show();
+		}
+    };
+    var search@(_controllerName)@(pageuniqueid) = function () {
+        applyFilterKendoGrid('@(_controllerName)grid@(pageuniqueid)', $('#@(_controllerName)searchfield@(pageuniqueid)').val(), $('#@(_controllerName)searchword@(pageuniqueid)').val());
+    }
+    var addnew@(_controllerName)@(pageuniqueid) = function () {
+        setKendoTabs('@(_controllerName)tabstrip@(pageuniqueid)', ['/@(_controllerName)/create/?pageid=@(pageuniqueid)']);
+        $('#@(_controllerName)tabstripwrapper@(pageuniqueid)').show();
+    };
+
+    var reload@(_controllerName)grid@(pageuniqueid) = function () {
+        reloadKendoGrid('@(_controllerName)grid@(pageuniqueid)');
+    };
+	var overridedReadyEventProcedure = function () {
+		$('#@(_controllerName)searchword@(pageuniqueid)').focus();
+	};
+	var hideTabStrip@(_controllerName)@(pageuniqueid) = function () {
+        scrollToTop();
+        $('#@(_controllerName)tabstripwrapper@(pageuniqueid)').hide();
+    };
+</script>

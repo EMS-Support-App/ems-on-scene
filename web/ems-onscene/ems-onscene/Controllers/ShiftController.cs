@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -19,6 +20,10 @@ namespace acemsoncall.web.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+        public ActionResult bagchecklegacy()
+        {
+            return View();
         }
         public ActionResult bagcheckdetail(int id, int? detailid)
         {

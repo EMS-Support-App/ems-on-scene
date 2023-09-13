@@ -139,6 +139,7 @@
           <Property Name="MenuName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="URL" Type="nvarchar" MaxLength="1000" />
           <Property Name="Sorting" Type="int" />
+          <Property Name="Icon" Type="nvarchar(max)" />
         </EntityType>
         <Association Name="FK_AspNetUsers_EMSRole">
           <End Role="EMSRole" Type="Self.EMSRole" Multiplicity="0..1" />
@@ -701,6 +702,7 @@
           <Property Name="Sorting" Type="Int32" />
           <NavigationProperty Name="WebMenuSetting1" Relationship="Model.FK_WebMenuSetting_WebMenuSetting" FromRole="WebMenuSetting" ToRole="WebMenuSetting1" />
           <NavigationProperty Name="WebMenuSetting2" Relationship="Model.FK_WebMenuSetting_WebMenuSetting" FromRole="WebMenuSetting1" ToRole="WebMenuSetting" />
+          <Property Name="Icon" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_WebMenuSetting_WebMenuSetting">
           <End Type="Model.WebMenuSetting" Role="WebMenuSetting" Multiplicity="0..1" />
@@ -858,6 +860,7 @@
           <EntitySetMapping Name="WebMenuSettings">
             <EntityTypeMapping TypeName="Model.WebMenuSetting">
               <MappingFragment StoreEntitySet="WebMenuSetting">
+                <ScalarProperty Name="Icon" ColumnName="Icon" />
                 <ScalarProperty Name="Sorting" ColumnName="Sorting" />
                 <ScalarProperty Name="URL" ColumnName="URL" />
                 <ScalarProperty Name="MenuName" ColumnName="MenuName" />

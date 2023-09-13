@@ -272,6 +272,7 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BagCheckDetailsController.cs" />
     <Compile Include="Controllers\BagCheckManagementController.cs" />
+    <Compile Include="Controllers\ContentController.cs" />
     <Compile Include="Controllers\ContentTypesController.cs" />
     <Compile Include="Controllers\EMSContentsController.cs" />
     <Compile Include="Controllers\EMSMessagesController.cs" />
@@ -281,6 +282,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MeController.cs" />
     <Compile Include="Controllers\MedicalRoleManagementsController.cs" />
+    <Compile Include="Controllers\MenuSettingsController.cs" />
     <Compile Include="Controllers\OData\AspNetUsersController.cs" />
     <Compile Include="Controllers\OData\ContentTypesController.cs" />
     <Compile Include="Controllers\OData\EMSOrganizationsController.cs" />
@@ -1948,6 +1950,14 @@
     <Content Include="Views\WebMenuSettings\Index.cshtml" />
     <Content Include="Views\WebMenuSettings\_form.cshtml" />
     <Content Include="Views\Shared\Info.cshtml" />
+    <Content Include="Views\Shift\bagchecklegacy.cshtml" />
+    <Content Include="Views\MenuSettings\Create.cshtml" />
+    <Content Include="Views\MenuSettings\Delete.cshtml" />
+    <Content Include="Views\MenuSettings\Details.cshtml" />
+    <Content Include="Views\MenuSettings\Edit.cshtml" />
+    <Content Include="Views\MenuSettings\Index.cshtml" />
+    <Content Include="Views\MenuSettings\_form.cshtml" />
+    <Content Include="Views\Content\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

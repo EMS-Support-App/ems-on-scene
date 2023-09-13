@@ -1,0 +1,10 @@
+﻿@using ems_onscene.Models.EntityModels
+@model EMSContent
+@{
+    ViewBag.Title = "Index";
+}
+<h1 class="amatic">@Model.title</h1>
+<div>
+    @Html.Raw(Model.content)
+</div>
+

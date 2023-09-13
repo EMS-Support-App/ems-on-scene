@@ -1,0 +1,52 @@
+﻿@model ems_onscene.Models.EntityModels.WebMenuSetting
+<div class="row">
+    @Html.LabelFor(model => model.ParentId, "Parent Id", htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-3">
+        @Html.Partial("_inputwithgridsearch", new ViewDataDictionary() {
+        { "fieldname", "ParentId" }
+        , { "displayfieldname", "MenuName"}
+        , { "fieldnametopick", "Id" }
+        , { "displayfieldnametopick", "MenuName" }
+        , { "value", Model.ParentId }
+        , { "displayvalue", Model.WebMenuSetting2 == null?string.Empty:Model.WebMenuSetting2.MenuName }
+        , { "searchfields", "MenuName" }
+        , { "searchfieldnames", "MenuName" }
+        , { "odatasourceurl", "/odata/WebMenuSettings?$select=Id,MenuName" }
+        , { "gridcolumns", "[{\"field\":\"Id\", \"title\":\"Id\"}, {\"field\":\"MenuName\", \"title\":\"MenuName\"} ]" }
+        , {"pagesize", "6" }
+		, { "positioncontrol", "fixed" }
+    })
+        @*@Html.DropDownList("ParentId", null, htmlAttributes: new { @class = "form-control" })*@
+        @Html.ValidationMessageFor(model => model.ParentId, "", new { @class = "text-danger" })
+    </div>
+    @Html.LabelFor(model => model.MenuName, "Menu Name", htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-3">
+        @Html.EditorFor(model => model.MenuName, new { htmlAttributes = new { @class = "form-control", datatype="System.String" } })
+        @Html.ValidationMessageFor(model => model.MenuName, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="row">
+    @Html.LabelFor(model => model.URL, "U R L", htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-3">
+        @Html.EditorFor(model => model.URL, new { htmlAttributes = new { @class = "form-control", datatype="System.String" } })
+        @Html.ValidationMessageFor(model => model.URL, "", new { @class = "text-danger" })
+    </div>
+    @Html.LabelFor(model => model.Sorting, "Sorting", htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-3">
+        @Html.EditorFor(model => model.Sorting, new { htmlAttributes = new { @class = "form-control", datatype="System.Int32" } })
+        @Html.ValidationMessageFor(model => model.Sorting, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="row">
+    @Html.LabelFor(model => model.Icon, "Icon", htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-3">
+        @Html.EditorFor(model => model.Icon, new { htmlAttributes = new { @class = "form-control", datatype="System.String" } })
+        @Html.ValidationMessageFor(model => model.Icon, "", new { @class = "text-danger" })
+    </div>
+	</div>
+<div class="hide">
+	<input type="hidden" name="pageid" value="@Request["pageid"]" />
+</div>
+@Html.Partial("_formexecutionresultmessage")

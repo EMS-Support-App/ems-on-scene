@@ -2,14 +2,37 @@
 
 @{
     ViewBag.Title = "Contents List";
+    int p = (int)ViewBag.currentPage;
+    int recordCount = (int)ViewBag.recordCount;
+    int pageCount = (int)ViewBag.pageCount;
+    //List<string> types = (List<string>)ViewBag.content
 }
 
 <h2>@ViewBag.Title</h2>
 
 <div class="text-right">
     <div class="inlineblock">
-            <a href="/EMSContents/create" class="btn btn-success">Add New Content</a>
+        <a href="/EMSContents/create" class="btn btn-success">Add New Content</a>
     </div>
+</div>
+<div class="text-right">Total records: @(recordCount), Page @p/@pageCount</div>
+<div class="text-center">
+    @if (p > 1)
+    {
+        <a href="?p=@(p-1)">[Previous]</a>
+    }
+    else
+    {
+        <span>[Previous]</span>
+    }
+    @if (pageCount > p)
+    {
+        <a href="?p=@(p+1)">[Next]</a>
+    }
+    else
+    {
+        <span>[Next]</span>
+    }
 </div>
 <table class="table" style="margin-top:25px;">
     <tr>
@@ -26,29 +49,50 @@
     </tr>
 
     @{
-   
+
     }
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            <a href="/EMSContents/Details/@item.id" style="color: black; text-decoration: none; ">@item.title</a>
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.contenttype)
-        </td>
-        <td>
-            @if (item.updatedt == null){
-                @item.registdt.ToString("MM/dd/yy")
-            }
-            else{
-                @item.updatedt.Value.ToString("MM/dd/yy")
-            }
-        </td>
-        <td>
-            <a href="/EMSContents/Delete/@item.id" style="color: black; text-decoration: none;">🗑️</a>
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <a href="/EMSContents/Details/@item.id" style="color: black; text-decoration: none; ">@item.title</a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.contenttype)
+            </td>
+            <td>
+                @if (item.updatedt == null)
+                {
+                    @item.registdt.ToString("MM/dd/yy")
+                }
+                else
+                {
+                    @item.updatedt.Value.ToString("MM/dd/yy")
+                }
+            </td>
+            <td>
+                <a href="/EMSContents/Delete/@item.id" style="color: black; text-decoration: none;">🗑️</a>
+            </td>
+        </tr>
+    }
 
 </table>
+<div class="text-center">
+    @if (p > 1)
+    {
+        <a href="?p=@(p-1)">[Previous]</a>
+    }
+    else
+    {
+        <span>[Previous]</span>
+    }
+    @if (pageCount > p)
+    {
+        <a href="?p=@(p+1)">[Next]</a>
+    }
+    else
+    {
+        <span>[Next]</span>
+    }
+</div>
