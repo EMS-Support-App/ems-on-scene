@@ -137,7 +137,7 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ParentId" Type="int" />
           <Property Name="MenuName" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="URL" Type="nchar" MaxLength="10" />
+          <Property Name="URL" Type="nvarchar" MaxLength="1000" />
           <Property Name="Sorting" Type="int" />
         </EntityType>
         <Association Name="FK_AspNetUsers_EMSRole">
@@ -697,7 +697,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ParentId" Type="Int32" />
           <Property Name="MenuName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="URL" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="URL" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="Sorting" Type="Int32" />
           <NavigationProperty Name="WebMenuSetting1" Relationship="Model.FK_WebMenuSetting_WebMenuSetting" FromRole="WebMenuSetting" ToRole="WebMenuSetting1" />
           <NavigationProperty Name="WebMenuSetting2" Relationship="Model.FK_WebMenuSetting_WebMenuSetting" FromRole="WebMenuSetting1" ToRole="WebMenuSetting" />

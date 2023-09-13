@@ -13,6 +13,7 @@ using james.utils.database;
 
 namespace ems_onscene.Controllers
 {
+    [Authorize(Roles ="admin")]
     public class WebMenuSettingsController : Controller
     {
         private emsonsceneEntities db = new emsonsceneEntities();
@@ -152,7 +153,7 @@ namespace ems_onscene.Controllers
 
 		private void GetSelectLists(WebMenuSetting webMenuSetting)
         {
-            // ViewBag.ParentId = new SelectList(db.WebMenuSettings, "Id", "MenuName", webMenuSetting.ParentId);
+            ViewBag.ParentId = new SelectList(db.WebMenuSettings, "Id", "MenuName", webMenuSetting.ParentId);
         }
 
         protected override void Dispose(bool disposing)

@@ -38,9 +38,9 @@
         <div id="@(_controllerName)grid@(pageuniqueid)" class="kendogridauto" data-kendo-grid-pagesize="10"
             data-kendo-grid-columns='[{"field":"Id", "title":"Id", "width":"100px"}
 				, {"field":"MenuName", "title":"Menu Name", "width":"100px"}
-				, {"field":"URL", "title":"U R L", "width":"100px"}
+				, {"field":"URL", "title":"URL", "width":"100px"}
 				, {"field":"Sorting", "title":"Sorting", "width":"100px"}
-				, {"field":"WebMenuSetting2.MenuName", "title":"Web Menu Setting2. Menu Name", "width":"100px", "template":"#=(typeof WebMenuSetting2 === \"undefined\")?\"\":WebMenuSetting2.MenuName#"}]' 
+				, {"field":"WebMenuSetting2.MenuName", "title":"Parent Menu Name", "width":"100px", "template":"#=(typeof WebMenuSetting2 === \"undefined\")?\"\":WebMenuSetting2.MenuName#"}]' 
  data-kendo-datasource-url="/odata/WebMenuSettings?$select=Id,MenuName,URL,Sorting,WebMenuSetting2/MenuName&$expand=WebMenuSetting2"
             data-kendo-grid-change="@(_controllerName)gridselectionchange@(pageuniqueid)" data-kendo-grid-sort='{"field":"Id", "dir":"desc"}'></div>
     </div>

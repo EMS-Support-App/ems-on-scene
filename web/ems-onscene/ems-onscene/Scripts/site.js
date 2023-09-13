@@ -54,11 +54,11 @@
             _initOSM(lon, lat);
         }
     };
-    var CKEDITOR_BASEPATH = '/js/ckeditor/';
+    var CKEDITOR_BASEPATH = '/scripts/ckeditor/';
 
     var loadCKEditor = function (afteraction) {
         if (typeof CKEDITOR === 'undefined') {
-            $.getScript('/js/ckeditor/ckeditor.js', function () {
+            $.getScript('/scripts/ckeditor/ckeditor.js', function () {
                 //CKEDITOR.config.customConfig = '/scripts/ckeditor/config.js';
                 //CKEDITOR.config.skin = 'office2003';
                 //CKEDITOR.config.toolbar = [

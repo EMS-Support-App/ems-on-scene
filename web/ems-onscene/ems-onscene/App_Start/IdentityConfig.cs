@@ -1,14 +1,21 @@
 ﻿using ems_onscene.Models;
+using MailKit.Net.Smtp;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
+using MimeKit;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.Entity;
 using System.Linq;
+using System.Net;
+using System.Net.Configuration;
+using System.Net.Security;
 using System.Security.Claims;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using System.Web;
 
@@ -16,9 +23,35 @@ namespace ems_onscene
 {
     public class EmailService : IIdentityMessageService
     {
+        private bool BypassRemoteCertificate(object sender, X509Certificate cert, X509Chain chain, SslPolicyErrors error)
+        {
+            if (error == SslPolicyErrors.None)
+            {
+                return true;
+            }
+
+            return true;
+        }
         public Task SendAsync(IdentityMessage message)
         {
-            // Plug in your email service here to send an email.
+            SmtpSection smtpSection = (SmtpSection)ConfigurationManager.GetSection("system.net/mailSettings/smtp");
+            System.Net.Mail.MailAddress from = new System.Net.Mail.MailAddress(smtpSection.From);
+            System.Net.Mail.MailAddress to = new System.Net.Mail.MailAddress(message.Destination);
+            ServicePointManager.ServerCertificateValidationCallback = (RemoteCertificateValidationCallback)Delegate.Combine(ServicePointManager.ServerCertificateValidationCallback, new RemoteCertificateValidationCallback(BypassRemoteCertificate));
+            using (MimeMessage mailMessage = new MimeMessage())
+            {
+                mailMessage.From.Add(new MailboxAddress(from.DisplayName, from.Address));
+                mailMessage.To.Add(new MailboxAddress(to.DisplayName, to.Address));
+                mailMessage.Subject = message.Subject;
+                mailMessage.Body = new TextPart("html") { Text = message.Body };
+                using (SmtpClient smtpClient = new SmtpClient())
+                {
+                    smtpClient.Connect(smtpSection.Network.Host, smtpSection.Network.Port, smtpSection.Network.EnableSsl);
+                    smtpClient.Authenticate(smtpSection.Network.UserName, smtpSection.Network.Password);
+                    smtpClient.Send(mailMessage);
+                    smtpClient.Disconnect(true);
+                }
+            }
             return Task.FromResult(0);
         }
     }
