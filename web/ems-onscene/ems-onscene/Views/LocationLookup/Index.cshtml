@@ -2,6 +2,10 @@
 @model List<EMSContent>
 @{
     ViewBag.Title = "Location Look Up";
+    int p = (int)ViewBag.currentPage;
+    int recordCount = (int)ViewBag.recordCount;
+    int pageCount = (int)ViewBag.pageCount;
+
 }
 
 <h1 class="amatic">@ViewBag.Title</h1>
@@ -18,9 +22,7 @@
 </div>
 
 <div class="clearfix"></div>
-
-<br />
-
+<div class="text-right">Total records: @(recordCount), Page @p/@pageCount</div>
 <div>
     @foreach (var location in Model)
     {
@@ -38,5 +40,23 @@
         </div>
 
         <hr size="1" style="border-style:double;border-color:black;" />
+    }
+</div>
+<div class="text-center">
+    @if (p > 1)
+    {
+        <a href="?p=@(p-1)">[Previous]</a>
+    }
+    else
+    {
+        <span>[Previous]</span>
+    }
+    @if (pageCount > p)
+    {
+        <a href="?p=@(p+1)">[Next]</a>
+    }
+    else
+    {
+        <span>[Next]</span>
     }
 </div>
