@@ -22,7 +22,6 @@
 document.addEventListener('deviceready', onDeviceReady, false);
 
 function onDeviceReady() {
-    document.getElementById('deviceready').classList.add('ready');
     window.open = cordova.InAppBrowser.open;
-    window.open('https://ems.jandslab.com', null, 'location=no');
+    window.open('https://ems.theclosetreport.com', null, 'location=no');
 }
