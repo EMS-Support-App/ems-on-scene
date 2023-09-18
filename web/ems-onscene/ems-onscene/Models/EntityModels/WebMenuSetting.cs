@@ -25,6 +25,7 @@ namespace ems_onscene.Models.EntityModels
         public string MenuName { get; set; }
         public string URL { get; set; }
         public Nullable<int> Sorting { get; set; }
+        public string Icon { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<WebMenuSetting> WebMenuSetting1 { get; set; }

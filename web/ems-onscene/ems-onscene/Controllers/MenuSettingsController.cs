@@ -13,18 +13,17 @@ using james.utils.database;
 
 namespace ems_onscene.Controllers
 {
-    [Authorize(Roles ="admin")]
-    public class WebMenuSettingsController : Controller
+    public class MenuSettingsController : Controller
     {
         private emsonsceneEntities db = new emsonsceneEntities();
 
-        // GET: WebMenuSettings
+        // GET: MenuSettings
         public ActionResult Index()
         {
             return View();
         }
 
-        // GET: WebMenuSettings/Details/5
+        // GET: MenuSettings/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -39,7 +38,7 @@ namespace ems_onscene.Controllers
             return View(webMenuSetting);
         }
 
-        // GET: WebMenuSettings/Create
+        // GET: MenuSettings/Create
         public ActionResult Create()
         {
             WebMenuSetting webMenuSetting = new WebMenuSetting();
@@ -51,12 +50,13 @@ namespace ems_onscene.Controllers
             return View(webMenuSetting);
         }
 
-        // POST: WebMenuSettings/Create
+        // POST: MenuSettings/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,ParentId,MenuName,URL,Sorting")] WebMenuSetting webMenuSetting)
+        [ValidateInput(false)]
+        public ActionResult Create([Bind(Include = "Id,ParentId,MenuName,URL,Sorting,Icon")] WebMenuSetting webMenuSetting)
         {
             if (ModelState.IsValid)
             {
@@ -64,7 +64,7 @@ namespace ems_onscene.Controllers
                 {
                     db.WebMenuSettings.Add(webMenuSetting);
                     db.SaveChanges();
-                    return Redirect("/WebMenuSettings/Edit/" + webMenuSetting.Id + "?reload=&pageid=" + Request["pageid"]);
+                    return Redirect("/MenuSettings/Edit/" + webMenuSetting.Id + "?reload=&pageid=" + Request["pageid"]);
                 }
                 catch (DbEntityValidationException _exp)
                 {
@@ -80,7 +80,7 @@ namespace ems_onscene.Controllers
             return View(webMenuSetting);
         }
 
-        // GET: WebMenuSettings/Edit/5
+        // GET: MenuSettings/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -96,12 +96,13 @@ namespace ems_onscene.Controllers
             return View(webMenuSetting);
         }
 
-        // POST: WebMenuSettings/Edit/5
+        // POST: MenuSettings/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,ParentId,MenuName,URL,Sorting")] WebMenuSetting webMenuSetting)
+        [ValidateInput(false)]
+        public ActionResult Edit([Bind(Include = "Id,ParentId,MenuName,URL,Sorting,Icon")] WebMenuSetting webMenuSetting)
         {
             if (ModelState.IsValid)
             {
@@ -109,7 +110,7 @@ namespace ems_onscene.Controllers
                 {
                     db.Entry(webMenuSetting).State = EntityState.Modified;
                     db.SaveChanges();
-                    return Redirect("/WebMenuSettings/Edit/" + webMenuSetting.Id + "?reload=&pageid=" + Request["pageid"]);
+                    return Redirect("/MenuSettings/Edit/" + webMenuSetting.Id + "?reload=&pageid=" + Request["pageid"]);
                 }
                 catch (DbEntityValidationException _exp)
                 {
@@ -125,7 +126,7 @@ namespace ems_onscene.Controllers
             return View(webMenuSetting);
         }
 
-        // GET: WebMenuSettings/Delete/5
+        // GET: MenuSettings/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -140,7 +141,7 @@ namespace ems_onscene.Controllers
             return View(webMenuSetting);
         }
 
-        // POST: WebMenuSettings/DeleteConfirmed/5
+        // POST: MenuSettings/DeleteConfirmed/5
         public ActionResult DeleteConfirmed(int id)
         {
             WebMenuSetting webMenuSetting = db.WebMenuSettings.Find(id);
@@ -148,12 +149,12 @@ namespace ems_onscene.Controllers
             //webMenuSetting.IsDeleted = true;
             db.SaveChanges();
             // return RedirectToAction("Index");
-            return Redirect("/home/Deleted?javascriptcommand=reloadwebmenusettingsgrid" + Request["pageid"]);
+            return Redirect("/home/Deleted?javascriptcommand=reloadmenusettingsgrid" + Request["pageid"]);
         }
 
 		private void GetSelectLists(WebMenuSetting webMenuSetting)
         {
-            ViewBag.ParentId = new SelectList(db.WebMenuSettings, "Id", "MenuName", webMenuSetting.ParentId);
+            // ViewBag.ParentId = new SelectList(db.WebMenuSettings, "Id", "MenuName", webMenuSetting.ParentId);
         }
 
         protected override void Dispose(bool disposing)

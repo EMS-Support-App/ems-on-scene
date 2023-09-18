@@ -40,3 +40,59 @@ hr{
     margin-top:15px;
     margin-bottom:15px;
 }
+
+/* Common styles for all buttons */
+.my_button {
+    padding: 100px 50px;
+    text-decoration: none;
+    width: 330px;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    display: inline-block;
+    margin: 7px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #6a82bc;
+    color: #fff;
+    text-align: center;
+}
+
+.bagcheck-detail {
+    padding: 100px 50px;
+    width: 330px;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin: 7px 15px;
+    font-size: 16px;
+    background-color: #ebf1f7;
+    color: #fff;
+    display: inline-block;
+}
+
+    .bagcheck-detail li {
+        color: initial;
+        text-align: left;
+    }
+
+.med10button {
+    background-color: #a5b4d6;
+}
+
+.med12button {
+    background-color: #879bc9;
+}
+
+.med13button {
+    background-color: #6a82bc;
+}
+
+/* Hover effect for all buttons */
+.my_button:hover {
+    background-color: #a2b1d5;
+    color: #fff;
+}
+#sidebar a {
+    text-decoration:none;
+}

@@ -1,4 +1,31 @@
-﻿/* Set padding to keep content from hitting the edges */
+﻿:root {
+    --bs-body-font-size: 12px;
+    --bs-body-font-family: Quicksand, tahoma;
+}
+input[type="date"], input[type="time"], input[type="datetime-local"], input[type="month"] {
+    line-height: initial;
+}
+input, button, select, optgroup, textarea {
+    font-family: var(--bs-body-font-family);
+}
+.form-control, .btn {
+    font-size: var(--bs-body-font-size);
+}
+
+.form-control {
+    height: 29px;
+    padding: 0 5px;
+}
+
+.table-bordered td,
+.table-bordered th {
+    padding: 5px;
+}
+
+.form-horizontal .control-label {
+    padding-top: 4px;
+}
+/* Set padding to keep content from hitting the edges */
 .body-content {
     margin-top: 15px;
     padding-left: 15px;
@@ -16,7 +43,7 @@
 input,
 select,
 textarea {
-    max-width: 280px;
+    max-width: initial;
 }
 
 /* Set padding to display errors that occur during databinding */
@@ -30,51 +57,116 @@ textarea {
         padding: 10px 15px;
     }
 }
-
-/* Common styles for all buttons */
-.my_button {
-    padding: 100px 50px;
-    text-decoration: none;
-    width: 330px;
-    border: none;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-    display: inline-block;
-    margin: 7px 15px;
-    font-size: 16px;
-    cursor: pointer;
-    background-color: #6a82bc;
-    color: #fff;
-    text-align:center;
-}
-.bagcheck-detail {
-    padding: 100px 50px;
-    width: 330px;
-    border: none;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-    margin: 7px 15px;
-    font-size: 16px;
-    background-color: #ebf1f7;
-    color: #fff;
-    display:inline-block;
-}
-.bagcheck-detail li {
-    color: initial;
-    text-align:left;
-}
-.med10button {
-    background-color: #a5b4d6;
-}
-.med12button {
-    background-color: #879bc9;
-}
-.med13button {
-    background-color: #6a82bc;
+/* ---- multi level dropdown menu ---- */
+.dropdown-submenu {
+    position: relative;
 }
 
-/* Hover effect for all buttons */
-    .my_button:hover {
-        background-color: #a2b1d5;
-        color: #fff;
+    .dropdown-submenu > .dropdown-menu {
+        top: 0;
+        left: 100%;
+        margin-top: -6px;
+        margin-left: -1px;
+        -webkit-border-radius: 0 6px 6px 6px;
+        -moz-border-radius: 0 6px 6px;
+        border-radius: 0 6px 6px 6px;
     }
+
+    .dropdown-submenu:hover > .dropdown-menu {
+        display: block;
+    }
+
+    .dropdown-submenu > a:after {
+        display: block;
+        content: " ";
+        float: right;
+        width: 0;
+        height: 0;
+        border-color: transparent;
+        border-style: solid;
+        border-width: 5px 0 5px 5px;
+        border-left-color: #ccc;
+        margin-top: 5px;
+        margin-right: -10px;
+    }
+
+    .dropdown-submenu:hover > a:after {
+        border-left-color: #fff;
+    }
+
+    .dropdown-submenu.pull-left {
+        float: none;
+    }
+
+        .dropdown-submenu.pull-left > .dropdown-menu {
+            left: -100%;
+            margin-left: 10px;
+            -webkit-border-radius: 6px 0 6px 6px;
+            -moz-border-radius: 6px 0 6px 6px;
+            border-radius: 6px 0 6px 6px;
+        }
+/* ---- multi level dropdown menu ---- */
+.showafterloaded {
+    display: none;
+}
+
+.blinking {
+    animation: blinkingObject 2s infinite;
+}
+
+.rainbowing {
+    animation: rainbowText 30s infinite;
+}
+
+@keyframes blinkingObject {
+    from {
+        opacity: 1.0;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+
+    to {
+        opacity: 1.0;
+    }
+}
+
+
+@keyframes rainbowText {
+    from {
+        color: white;
+    }
+
+    12.5% {
+        color: red;
+    }
+
+    25% {
+        color: orangered;
+    }
+
+    37.5% {
+        color: yellow;
+    }
+
+    50% {
+        color: green;
+    }
+
+    62.5% {
+        color: blue;
+    }
+
+    75% {
+        color: indigo;
+    }
+
+    87.5% {
+        color: purple;
+    }
+
+    to {
+        color: white;
+    }
+}

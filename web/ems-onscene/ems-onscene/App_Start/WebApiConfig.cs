@@ -42,6 +42,7 @@ namespace ems_onscene
             builder.EntitySet<EMSMessage>("EMSMessages");
             builder.EntitySet<AspNetRole>("AspNetRoles");
             builder.EntitySet<ContentType>("ContentTypes");
+            builder.EntitySet<WebMenuSetting>("WebMenuSettings");
 
             config.Routes.MapODataServiceRoute("odata", "odata", builder.GetEdmModel());
         }

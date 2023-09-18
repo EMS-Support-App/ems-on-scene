@@ -97,10 +97,11 @@
     var selecttherow@(controluniqueid) = function () {
         var selectedItem = getSelectedItem('grid@(controluniqueid)');
         if (selectedItem !== null) {
-                    $('#@(fieldname)@(controluniqueid)').val(selectedItem.@(string.IsNullOrWhiteSpace(fieldnametopick)?fieldname: fieldnametopick));
-        @*console.log('selectedItem.@(string.IsNullOrWhiteSpace(fieldnametopick)?fieldname: fieldnametopick)');
+            $('#@(fieldname)@(controluniqueid)').val(selectedItem.@(string.IsNullOrWhiteSpace(fieldnametopick)?fieldname: fieldnametopick));
+            debugger;
+        console.log('selectedItem.@(string.IsNullOrWhiteSpace(fieldnametopick)?fieldname: fieldnametopick)');
         console.log(selectedItem.@(string.IsNullOrWhiteSpace(fieldnametopick)?fieldname: fieldnametopick));
-        console.log($('#@(fieldname)@(controluniqueid)').val());*@
+        console.log($('#@(fieldname)@(controluniqueid)').val());
         $('#displayformname@(controluniqueid)').val(selectedItem.@(string.IsNullOrWhiteSpace(displayfieldnametopick) ? displayfieldname : displayfieldnametopick));
         @if (!string.IsNullOrWhiteSpace(additionalJavascriptAction))
         {

@@ -18,10 +18,20 @@ namespace acemsoncall.web.Controllers
         private emsonsceneEntities db = new emsonsceneEntities();
 
         // GET: EMSContents
-        public ActionResult Index()
+        public ActionResult Index(string t=null, int p = 1, int ps = 20)
         {
             var eMSContents = db.EMSContents.Include(e => e.AspNetUser).Include(e => e.AspNetUser1);
             eMSContents = eMSContents.OrderByDescending(e => e.id).Include(e => e.AspNetUser).Include(e => e.AspNetUser1);
+            if (t != null && !string.IsNullOrWhiteSpace(t))
+            {
+                eMSContents = eMSContents.Where(c=>c.contenttype == t);
+            }
+            int recordCount = eMSContents.Count();
+            int pageCount = (recordCount / ps) + (recordCount % ps > 0 ? 1 : 0);
+            ViewBag.currentPage = p;
+            ViewBag.recordCount = recordCount;
+            ViewBag.pageCount = pageCount;
+            eMSContents = eMSContents.OrderByDescending(e => e.id).Include(e => e.AspNetUser).Include(e => e.AspNetUser1).Skip((p - 1) * ps).Take(ps);
             return View(eMSContents.ToList());
         }
 
