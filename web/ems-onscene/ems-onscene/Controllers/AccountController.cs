@@ -1,4 +1,5 @@
 ﻿using ems_onscene.Models;
+using ems_onscene.Models.EntityModels;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
@@ -84,7 +85,14 @@ namespace ems_onscene.Controllers
             {
                 return View(model);
             }
-
+            using(emsonsceneEntities db = new emsonsceneEntities())
+            {
+                var aspNetUser = db.AspNetUsers.FirstOrDefault(u => u.Email == model.Email); 
+                if (aspNetUser == null || aspNetUser.Approved != true )
+                {
+                    return View("NotApproved");
+                }
+            }
             // Require the user to have a confirmed email before they can log on.
             var user = await UserManager.FindByNameAsync(model.Email);
             if (user != null)

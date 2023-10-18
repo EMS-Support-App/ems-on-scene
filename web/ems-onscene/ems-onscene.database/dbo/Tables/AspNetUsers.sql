@@ -15,6 +15,7 @@
     [MedicalRank]          NVARCHAR (50)  NULL,
     [IsCheckedIn]          BIT            CONSTRAINT [DF_AspNetUsers_IsCheckedIn] DEFAULT ((0)) NOT NULL,
     [CheckedInDT]          DATETIME       NULL,
+    [Approved] BIT NULL, 
     CONSTRAINT [PK_dbo.AspNetUsers] PRIMARY KEY CLUSTERED ([Id] ASC),
     CONSTRAINT [FK_AspNetUsers_EMSRole] FOREIGN KEY ([MedicalRank]) REFERENCES [dbo].[EMSRole] ([MedicalRank])
 );

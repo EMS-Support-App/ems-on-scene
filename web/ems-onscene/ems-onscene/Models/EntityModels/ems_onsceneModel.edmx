@@ -59,6 +59,7 @@
           <Property Name="MedicalRank" Type="nvarchar" MaxLength="50" />
           <Property Name="IsCheckedIn" Type="bit" Nullable="false" />
           <Property Name="CheckedInDT" Type="datetime" />
+          <Property Name="Approved" Type="bit" />
         </EntityType>
         <EntityType Name="ContentType">
           <Key>
@@ -481,6 +482,7 @@
           <NavigationProperty Name="EMSMessages" Relationship="Model.FK_EMSMessage_EMSMessage_FROM" FromRole="AspNetUser" ToRole="EMSMessage" />
           <NavigationProperty Name="EMSMessages1" Relationship="Model.FK_EMSMessage_EMSMessage_TO" FromRole="AspNetUser" ToRole="EMSMessage" />
           <NavigationProperty Name="AspNetRoles" Relationship="Model.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
+          <Property Name="Approved" Type="Boolean" />
         </EntityType>
         <EntityType Name="ContentType">
           <Key>
@@ -752,6 +754,7 @@
           <EntitySetMapping Name="AspNetUsers">
             <EntityTypeMapping TypeName="Model.AspNetUser">
               <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="Approved" ColumnName="Approved" />
                 <ScalarProperty Name="CheckedInDT" ColumnName="CheckedInDT" />
                 <ScalarProperty Name="IsCheckedIn" ColumnName="IsCheckedIn" />
                 <ScalarProperty Name="MedicalRank" ColumnName="MedicalRank" />

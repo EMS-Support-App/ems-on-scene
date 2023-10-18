@@ -280,6 +280,7 @@
     <Compile Include="Controllers\InfoLookupController.cs" />
     <Compile Include="Controllers\LocationLookupController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ManageUserAccountsController.cs" />
     <Compile Include="Controllers\MeController.cs" />
     <Compile Include="Controllers\MedicalRoleManagementsController.cs" />
     <Compile Include="Controllers\MenuSettingsController.cs" />
@@ -1958,6 +1959,13 @@
     <Content Include="Views\MenuSettings\Index.cshtml" />
     <Content Include="Views\MenuSettings\_form.cshtml" />
     <Content Include="Views\Content\Index.cshtml" />
+    <Content Include="Views\Shared\NotApproved.cshtml" />
+    <Content Include="Views\ManageUserAccounts\Create.cshtml" />
+    <Content Include="Views\ManageUserAccounts\Delete.cshtml" />
+    <Content Include="Views\ManageUserAccounts\Details.cshtml" />
+    <Content Include="Views\ManageUserAccounts\Edit.cshtml" />
+    <Content Include="Views\ManageUserAccounts\Index.cshtml" />
+    <Content Include="Views\ManageUserAccounts\_form.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -45,7 +45,9 @@ select,
 textarea {
     max-width: initial;
 }
-
+.hide {
+    display:none;
+}
 /* Set padding to display errors that occur during databinding */
 .padding-error {
     padding-top: 20px;
