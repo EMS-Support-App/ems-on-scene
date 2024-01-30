@@ -10,6 +10,7 @@ using ems_onscene.Models.EntityModels;
 
 namespace acemsoncall.web.Controllers
 {
+    [Authorize]
     public class PersonnelsController : Controller
     {
         private emsonsceneEntities db = new emsonsceneEntities();

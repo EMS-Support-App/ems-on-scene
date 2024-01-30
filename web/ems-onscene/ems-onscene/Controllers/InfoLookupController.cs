@@ -9,6 +9,7 @@ using System.Data.Entity;
 
 namespace acemsoncall.web.Controllers
 {
+    [Authorize]
     public class InfoLookupController : Controller
     {
         private emsonsceneEntities db = new emsonsceneEntities();

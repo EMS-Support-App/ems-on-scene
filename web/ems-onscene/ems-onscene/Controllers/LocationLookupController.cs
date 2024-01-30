@@ -8,6 +8,7 @@ using System.Data.Entity;
 
 namespace acemsoncall.web.Controllers
 {
+    [Authorize]
     public class LocationLookupController : Controller
     {
         private emsonsceneEntities db = new emsonsceneEntities();

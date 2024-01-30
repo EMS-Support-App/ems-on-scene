@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace ems_onscene.Controllers
 {
+    [Authorize]
     public class ContentController : Controller
     {
         private emsonsceneEntities db = new emsonsceneEntities();
